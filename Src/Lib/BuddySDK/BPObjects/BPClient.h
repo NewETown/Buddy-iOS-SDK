@@ -8,26 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
-
+#import "BuddyCallbacks.h"
 #import "BPRestProvider.h"
-#import "BuddyCollection.h" // TODO - remove dependency
 #import "BPMetricCompletionHandler.h"
-#import "BPUser.h"
+#import "BuddyClientProtocol.h"
 
 @class BuddyDevice;
-@class BPGameBoards;
-@class BPAppMetadata;
-@class BPUser;
-@class BPCheckinCollection;
-@class BPPictureCollection;
-@class BPVideoCollection;
-@class BPBlobCollection;
-@class BPAlbumCollection;
-@class BPLocationCollection;
-@class BPUserCollection;
-@class BPCoordinate;
 @class BPNotification;
-@class BPUserListCollection;
+
+@class BPModelUser;
+
 
 /**
  * Enum specifying the current authentication level.
@@ -41,37 +31,9 @@ typedef NS_ENUM(NSInteger, BPAuthenticationLevel) {
     BPAuthenticationLevelUser
 };
 
-/**
- * Enum specifying the current authentication level.
- */
-typedef NS_ENUM(NSInteger, BPReachabilityLevel) {
-    /** No network reachability */
-    BPReachabilityNone     = 0,
-    /** Reachable via carrier */
-    BPReachabilityCarrier = 1,
-    /** Reachability not known */
-    BPReachabilityWiFi = 2,
-};
 
-@protocol BPClientDelegate <NSObject>
+@interface BPClient : NSObject <BPRestProvider,BuddyClientProtocol>
 
-@optional
-- (void)userChangedTo:(BPUser *)newUser from:(BPUser *)oldUser;
-
-- (void)connectivityChanged:(BPReachabilityLevel)level;
-
-- (void)apiErrorOccurred:(NSError *)error;
-
-- (void)authorizationNeedsUserLogin;
-
-@end
-
-@interface BPClient : BPBase
-
-
-/** Callback signature for the BuddyClientPing function. BuddyStringResponse.result field will be "Pong" if the server responds correctly. If there was an exception or error (e.g. unknown server response or invalid data) the response.exception field will be set to an exception instance and the raw response from the server, if any, will be held in the response.dataResult field.
- */
-typedef void (^BPPingCallback)(NSDecimalNumber *ping);
 
 /// <summary>
 /// Gets the application name for this client.
@@ -94,110 +56,56 @@ typedef void (^BPPingCallback)(NSDecimalNumber *ping);
 /// </summary>
 @property (readonly, nonatomic, strong) BuddyDevice *device;
 
-/// <summary>
-/// Gets an object that can be used to retrieve high score rankings or search for game boards in this application.
-/// </summary>
-@property (readonly, nonatomic, strong) BPGameBoards *gameBoards;
-
-
-/// <summary>
-/// Gets an object that can be used to manipulate application-level metadata. Metadata is used to store custom values on the platform.
-/// </summary>
-@property (readonly, nonatomic, strong) BPAppMetadata *metadata;
-
-/// <summary>
-/// Gets an object that can be used to search users.
-/// </summary>
-@property (readonly, nonatomic, strong) BPUserCollection *users;
-
-/// <summary>
-/// Gets an object that can be used to retrieve sounds.
-/// </summary>
-@property (readonly, nonatomic, strong) BPCheckinCollection *checkins;
-
-/// <summary>
-/// TODO
-/// </summary>
-@property (readonly, nonatomic, strong) BPPictureCollection *pictures;
-
-/// <summary>
-/// TODO
-/// </summary>
-@property (readonly, nonatomic, strong) BPVideoCollection *videos;
-
-/// <summary>
-/// TODO
-/// </summary>
-@property (readonly, nonatomic, strong) BPBlobCollection *blobs;
-
-/// <summary>
-/// TODO
-/// </summary>
-@property (readonly, nonatomic, strong) BPAlbumCollection *albums;
-
-/// <summary>
-/// TODO
-/// </summary>
-@property (readonly, nonatomic, strong) BPLocationCollection *locations;
-
-/// <summary>
-/// A collection of User Lists. Each User List consists either of Users or further UserLists
-/// </summary>
-@property (readonly, nonatomic, strong) BPUserListCollection *userLists;
-
-/// <summary>
-/// TODO
-/// </summary>
-@property (nonatomic, assign) BOOL locationEnabled;
-
 /**
   * Most recent BPCoordinate.
   */
-@property (nonatomic, readonly, strong) BPCoordinate *lastLocation;
+@property (nonatomic, strong) BPCoordinate *lastLocation;
 
 /**
  * Current reachability level.
  */
 @property (nonatomic, readonly, assign) BPReachabilityLevel reachabilityLevel;
 
-
-/// <summary>
-/// Current BuddyAuthenticatedUser as of the last login
-/// </summary>
-@property (nonatomic, readonly, strong) BPUser *user;
+@property (nonatomic, strong) BPModelUser *currentUser;
 
 @property (nonatomic,weak) id<BPClientDelegate> delegate;
 
-/// <summary>
-/// Singleton instance of the client.
-/// </summary>
-+ (instancetype)defaultClient;
 
-
-@property (nonatomic, readonly, strong) id <BPRestProvider> restService;
 /// TODO
 -(void)setupWithApp:(NSString *)appID
                 appKey:(NSString *)appKey
                 options:(NSDictionary *)options
                 delegate:(id<BPClientDelegate>)delegate;
 
-- (void)createUser:(BPUser *)user
-          password:(NSString *)password
-          callback:(BuddyCompletionCallback)callback;
 
-- (void)login:(NSString *)username password:(NSString *)password callback:(BuddyObjectCallback)callback;
+- (void)createUser:(NSString*) userName
+          password:(NSString*) password
+         firstName:(NSString*) firstName
+          lastName:(NSString*) lastName
+             email:(NSString*) email
+       dateOfBirth:(NSDate*) dateOfBirth
+            gender:(NSString*) gender
+               tag:(NSString*) tag
+          callback:(BuddyObjectCallback)callback;
 
+- (void)loginUser:(NSString *)username password:(NSString *)password callback:(BuddyObjectCallback)callback;
 - (void)socialLogin:(NSString *)provider providerId:(NSString *)providerId token:(NSString *)token success:(BuddyObjectCallback) callback;
 
 /**
  * Logs out the current user.
  */
-- (void)logout:(BuddyCompletionCallback)callback;
+- (void)logoutUser:(BuddyCompletionCallback)callback;
 
 /**
- * Sends a Ping message to the server to verify connectivity
+ * REST Methods
  */
-- (void)ping:(BPPingCallback)callback;
+
+- (void)GET:(NSString *)servicePath parameters:(NSDictionary *)parameters class:(Class)clazz callback:(RESTCallback)callback;
+- (void)POST:(NSString *)servicePath parameters:(NSDictionary *)parameters class:(Class)clazz callback:(RESTCallback)callback;
+- (void)PATCH:(NSString *)servicePath parameters:(NSDictionary *)parameters class:(Class)clazz callback:(RESTCallback)callback;
+- (void)PUT:(NSString *)servicePath parameters:(NSDictionary *)parameters class:(Class)clazz callback:(RESTCallback)callback;
+- (void)DELETE:(NSString *)servicePath parameters:(NSDictionary *)parameters class:(Class)clazz callback:(RESTCallback)callback;
+ 
 
 - (void)sendPushNotification:(BPNotification *)notification callback:(BuddyCompletionCallback)callback;
 

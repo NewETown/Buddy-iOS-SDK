@@ -43,7 +43,7 @@
     
     [self.window makeKeyAndVisible];
     
-    [Buddy initClient: APP_ID appKey: APP_KEY];
+    [Buddy init: APP_ID appKey: APP_KEY];
     
     
     _channels =[[ChannelList alloc] init];

@@ -83,11 +83,19 @@
     self.HUD.dimBackground = YES;
     self.HUD.delegate=self;
     
-    BPPicture *pic = [BPPicture new];
-    pic.caption = self.captionField.text;
     AddPictureViewController * __weak weakSelf = self;
     
-    [[Buddy pictures] addPicture:pic image:self.selectedImage callback:^(NSError *error) {
+    
+    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
+    [parameters setObject:self.captionField.text forKey:@"caption"];
+    
+    BuddyFile *file = [[BuddyFile alloc] init];
+    file.contentType = @"image/png";
+    file.fileData = UIImagePNGRepresentation(self.selectedImage);
+    [parameters setObject:file forKey:@"data"];
+    
+  
+    [Buddy POST:@"pictures" parameters:parameters class:[BPModelPicture class] callback:^(id obj, NSError *error) {
         [weakSelf.HUD hide:TRUE afterDelay:0.1];
         weakSelf.HUD=nil;
         
@@ -105,6 +113,8 @@
         }
         
         NSLog(@"LoadUserPhotosCallback - success Called");
+        BPModelPicture *pic = (BPModelPicture*)obj;
+        
         [[CommonAppDelegate userPictures] addPicture:pic];
         [self goBack];
     }];

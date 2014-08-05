@@ -20,8 +20,8 @@
 
 
 
--(BuddyCompletionCallback) getSavePhotoCallback;
--(BuddyCompletionCallback) getDeletePhotoCallback;
+-(RESTCallback) getSavePhotoCallback;
+-(RESTCallback) getDeletePhotoCallback;
 
 @end
 
@@ -58,40 +58,49 @@
     self.HUD.dimBackground = YES;
     self.HUD.delegate=self;
     
-    NSString *picId = [NSURL URLWithString:Buddy.user.profilePictureID];
-    
-    if (picId==nil)
+    if (Buddy.user.profilePictureID==nil)
     {
         [self.HUD hide:YES];
         return;
     }
     
-    BPPicture* pic = [[BPPicture alloc] initWithId:picId];
-    
-  
-    [pic refresh:^(NSError *error) {
-       if (!error) {
+    [Buddy GET:[NSString stringWithFormat:@"pictures/%@",Buddy.user.profilePictureID] parameters:nil
+         class:[BPModelPicture class] callback:^(id obj, NSError *error)
+    {
+        if (!error)
+        {
+        
+            BPModelPicture  *pic = (BPModelPicture*)obj;
             [self.captionField setText:pic.caption];
+            
             [self.choosePhotoBut setTitle:@"Loading..." forState:UIControlStateNormal];
             
-            BPSize* size = BPSizeMake(150, 0);
-        
-            [pic getImageWithSize:size callback:^(UIImage *img, NSError *error) {
+            BPSize* size = BPSizeMake(150, 150);
+            NSDictionary *parameters = @{@"size": size};
+            
+            NSString *requestPath =[NSString stringWithFormat:@"pictures/%@/file",Buddy.user.profilePictureID];
+            
+            [Buddy GET:requestPath parameters:parameters class:[BuddyFile class] callback:^(id obj, NSError *error) {
                
-                        UIGraphicsBeginImageContext(CGSizeMake(1,1));
-                        CGContextRef context = UIGraphicsGetCurrentContext();
-                        CGContextDrawImage(context, CGRectMake(0, 0, 1, 1), [img CGImage]);
-                        UIGraphicsEndImageContext();
-                        [self.choosePhotoBut setTitle:@"" forState:UIControlStateNormal];
+                BuddyFile *file = (BuddyFile*)obj;
                 
-                        if(img!=nil)
-                        {
-                            [self.choosePhotoBut setImage:img forState:UIControlStateNormal];
-                        }
-                        else
-                        {
-                            [self.choosePhotoBut setBackgroundColor:[UIColor blackColor]];
-                        }
+                UIImage *img = [UIImage imageWithData:file.fileData];
+                
+                UIGraphicsBeginImageContext(CGSizeMake(1,1));
+                
+                CGContextRef context = UIGraphicsGetCurrentContext();
+                CGContextDrawImage(context, CGRectMake(0, 0, 1, 1), [img CGImage]);
+                UIGraphicsEndImageContext();
+                
+                [self.choosePhotoBut setTitle:@"" forState:UIControlStateNormal];
+                if(img!=nil)
+                {
+                    [self.choosePhotoBut setImage:img forState:UIControlStateNormal];
+                }
+                else
+                {
+                    [self.choosePhotoBut setBackgroundColor:[UIColor blackColor]];
+                }
             }];
         }
     }];
@@ -100,8 +109,6 @@
     
     [self.HUD hide:YES];
 }
-
-
 
 - (IBAction)showCamera:(id)sender
 {
@@ -177,9 +184,17 @@
     
     self.HUD.labelText= @"Saving...";
     [self.HUD show:YES];
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
 
-    NSString *photoCaption = self.captionField.text;
-    [Buddy.user setUserProfilePicture:self.selectedImage caption:photoCaption callback: [self getSavePhotoCallback]];
+    [params setObject:self.captionField.text forKey:@"caption"];
+    
+    BuddyFile *file = [[BuddyFile alloc] init];
+    file.contentType = @"image/png";
+    file.fileData = UIImagePNGRepresentation(self.selectedImage);
+    [params setObject:file forKey:@"data"];
+    
+    [Buddy POST:@"users/me/profilepicture" parameters:params class:[BPModelPicture class] callback:[self getSavePhotoCallback]];
 }
 
 - (IBAction)doDeletePhoto:(id)sender
@@ -187,14 +202,14 @@
     self.HUD.labelText= @"Deleting Photo...";
     [self.HUD show:YES];
     
-    [Buddy.user deleteUserProfilePicture:[self getDeletePhotoCallback]];
+    [Buddy DELETE:@"users/me/profilepicture" parameters:nil class:[NSDictionary class] callback:[self getDeletePhotoCallback]];
 }
 
--(BuddyCompletionCallback) getSavePhotoCallback
+-(RESTCallback) getSavePhotoCallback
 {
     ChangeProfilePictureViewController * __weak weakSelf = self;
     
-    return ^(NSError *error)
+    return ^(id obj,NSError *error)
     {
         [weakSelf.HUD hide:TRUE afterDelay:0.1];
         weakSelf.HUD=nil;
@@ -212,6 +227,9 @@
             return;
         }
         
+        BPModelPicture *pic = (BPModelPicture*)obj;
+        Buddy.user.profilePictureID = pic.id;
+        
         NSLog(@"Save User profile picture - success Called");
         [[self navigationController] popViewControllerAnimated:YES];
         
@@ -219,11 +237,11 @@
     
 }
 
--(BuddyCompletionCallback) getDeletePhotoCallback
+-(RESTCallback) getDeletePhotoCallback
 {
     ChangeProfilePictureViewController * __weak weakSelf = self;
     
-    return ^(NSError *error)
+    return ^(id obj,NSError *error)
     {
         [weakSelf.HUD hide:TRUE afterDelay:0.1];
         weakSelf.HUD=nil;

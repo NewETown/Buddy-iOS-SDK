@@ -10,9 +10,6 @@
 
 #import <UIKit/UIKit.h>
 
-#import "BuddySDK/BuddyObject.h"
-
-
 @interface RegisterViewController : UIViewController <MBProgressHUDDelegate>
 
 @property (nonatomic,weak) IBOutlet UITextField *firstNameTextField;

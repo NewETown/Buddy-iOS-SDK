@@ -10,8 +10,6 @@
 
 #import "MBProgressHUD.h"
 
-#import "BuddySDK/BuddyObject.h"
-
 @interface LoginViewController : UIViewController <MBProgressHUDDelegate, UITextFieldDelegate>
 
 @property (nonatomic,weak) IBOutlet UITextField *userNameTextField;

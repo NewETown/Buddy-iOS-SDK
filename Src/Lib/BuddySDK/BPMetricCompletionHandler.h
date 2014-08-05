@@ -8,8 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-typedef void (^BuddyTimedMetricResult)(NSInteger elapsedTimeInMs, NSError *error);
-
+#import "BuddyCallbacks.h"
+#import "BPRestProvider.h"
 
 @interface BPMetricCompletionHandler : NSObject
 
@@ -22,4 +22,4 @@ typedef void (^BuddyTimedMetricResult)(NSInteger elapsedTimeInMs, NSError *error
 
 @end
 
-typedef void (^BuddyMetricCallback)(BPMetricCompletionHandler *metricCompletionHandler, NSError *error);
+

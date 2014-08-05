@@ -155,21 +155,14 @@
     // build the user details
     // note only username and password are required.
     
-    BPUser *user = [BPUser new];
-    user.firstName = self.signupFirstName.text;
-    user.lastName = self.signupLastName.text;
-    user.gender = BPUserGender_Unknown;
-    user.dateOfBirth= nil;
-    user.email = self.signupEmail.text;
-    user.userName = self.signupUsername.text;
-    
-    
     BuddyObjectCallback loginCallback = [self getLoginCallback];
-    [Buddy createUser:user
+    
+    [Buddy createUser:self.signupUsername.text
              password:self.signupPassword.text
-              callback:^(NSError *error) {
-                  loginCallback(nil, error);
-              }];
+            firstName:self.signupFirstName.text
+             lastName:self.signupLastName.text
+                email:self.signupEmail.text
+          dateOfBirth:nil gender:@"male" tag:nil callback:loginCallback];
 }
 
 
@@ -264,7 +257,7 @@
     }
 
     
-    [Buddy login:self.loginUsername.text
+    [Buddy loginUser:self.loginUsername.text
         password:self.loginPassword.text
         callback:[self getLoginCallback]];
 

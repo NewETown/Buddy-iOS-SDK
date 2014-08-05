@@ -37,13 +37,12 @@
 
 -(IBAction)addChannel:(id)sender
 {
-    BPUserList *list = [BPUserList new];
     
-    list.name = self.channelName.text;
-    list.readPermissions =BPPermissionsApp;
-    list.writePermissions = BPPermissionsApp;
+    NSDictionary *params =@{@"name" :self.channelName.text,
+                           @"readPermissions" : @"App",
+                           @"writePermissions" : @"App"};
     
-    [Buddy.userLists addUserList:list callback:^(NSError *error) {
+    [Buddy POST:@"users/lists" parameters:params class:[BPModelUserList class] callback:^(id obj, NSError *error) {
         
         if(error!=nil)
         {
@@ -58,9 +57,12 @@
             return;
         }
         
+        BPModelUserList *list = (BPModelUserList*)obj;
+        
         [[CommonAppDelegate channels] addChannel:list];
         
-        [list addUser:Buddy.user callback:^(BOOL result, NSError *error)
+        [Buddy PUT:[NSString stringWithFormat:@"users/lists/%@/items/%@",list.id, [Buddy user].id]
+         parameters:nil class:[NSDictionary class] callback:^(id obj, NSError *error)
         {
             [[CommonAppDelegate navController] popViewControllerAnimated:YES];
         }];

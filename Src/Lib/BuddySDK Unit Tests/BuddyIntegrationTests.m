@@ -11,6 +11,8 @@
 #import "BPAppSettings+Private.h"
 #import "BuddyIntegrationHelper.h"
 
+#import "BPModelUser.h"
+
 #ifdef kKW_DEFAULT_PROBE_TIMEOUT
 #undef kKW_DEFAULT_PROBE_TIMEOUT
 #endif
@@ -22,29 +24,18 @@ SPEC_BEGIN(BuddyIntegrationSpec)
 describe(@"Buddy", ^{
     context(@"A clean boot of your app", ^{
         
-        __block NSString *testCreateDeleteName = @"ItPutsTheLotionOnItsSkin";
-        __block id mock = nil;
         __block BOOL fin = NO;
-
+        __block NSString *userName = [BuddyIntegrationHelper getUUID];
+        __block id<BuddyClientProtocol> client;
+        
         beforeAll(^{
             
             [BPAppSettings resetSettings:nil];
             
-            [Buddy initClient:APP_ID appKey:APP_KEY];
+            [Buddy init:APP_ID appKey:APP_KEY];
             
-            [Buddy login:testCreateDeleteName password:TEST_PASSWORD callback:^(BPUser *loggedInsUser, NSError *error) {
-                if (!error) {
-                    [loggedInsUser destroy:^(NSError *error){
-                        fin = YES;
-                    }];
-                } else {
-                    fin = YES;
-                }
-            }];
+            client = [Buddy currentClient];
             
-            mock = [KWMock mockForProtocol:@protocol(BPClientDelegate)];
-            
-            [[expectFutureValue(theValue(fin)) shouldEventually] beTrue];
         });
         
         beforeEach(^{
@@ -55,82 +46,43 @@ describe(@"Buddy", ^{
 
         });
         
-        it(@"Should throw an auth error if they try to access pictures.", ^{
-            [Buddy setClientDelegate:mock];
-            
-            [[mock shouldEventually] receive:@selector(apiErrorOccurred:)];
-            [[[mock shouldEventually] receive] authorizationNeedsUserLogin];
-            [[Buddy pictures] searchPictures:nil callback:^(NSArray *buddyObjects, BPPagingTokens *tokens, NSError *error) {
-                [Buddy setClientDelegate:nil];
-            }];
-        });
-        
         it(@"Should allow you to create a user.", ^{
             __block NSDate *randomDate = [BuddyIntegrationHelper randomDate];
-
-            __block BPUser *newUser = [BPUser new];
-            newUser.firstName = @"Erik";
-            newUser.lastName = @"Kerber";
-            newUser.gender = BPUserGender_Female;
-            newUser.email = TEST_EMAIL;
-            newUser.dateOfBirth = randomDate;
-            newUser.userName = testCreateDeleteName;
             
-            [Buddy createUser:newUser password:TEST_PASSWORD callback:^(NSError *error) {
-                [[error should] beNil];
-                if (error) {
-                    fin = YES;
-                    return;
-                }
-                [[newUser.userName should] equal:testCreateDeleteName];
-                [[newUser.firstName should] equal:@"Erik"];
-                [[newUser.lastName should] equal:@"Kerber"];
-                [[theValue(newUser.gender) should] equal:theValue(BPUserGender_Female)];
-                [[newUser.dateOfBirth should] equal:randomDate];
-                fin = YES;
-            }];
+            NSString *email = [NSString stringWithFormat:@"user-%@@buddytest.com",[BuddyIntegrationHelper getUUID]];
+            [Buddy createUser:userName
+                     password:TEST_PASSWORD
+                    firstName:@"Erik"
+                     lastName:@"Kerber"
+                        email:email
+                  dateOfBirth:randomDate gender:@"male" tag:nil callback:^(id obj,NSError *error) {
+                      fin = YES;
+                      
+                      BPModelUser *user = (BPModelUser*)obj;
+                      
+                      [[user should] beNonNil];
+                      
+                      [[user.userName should] equal:userName];
+                      [[user.firstName should] equal:@"Erik"];
+                      [[user.lastName should] equal:@"Kerber"];
+                      [[user.dateOfBirth should] equal:randomDate];
+                      [[user.gender should] equal: @"Male"];
+                      
+                  }];
             
             [[expectFutureValue(theValue(fin)) shouldEventually] beTrue];
         });
         
         it(@"Should allow you to login.", ^{
-            __block BPUser *newUser;
+            __block BPModelUser *newUser;
             
-            [Buddy setClientDelegate:mock];
-            
-            // Leaving in inline comment below. Can't verify it receives the object before the object exists.
-            [[mock shouldEventually] receive:@selector(userChangedTo:from:) /*withArguments:[Buddy user], nil*/];
-
-            [Buddy login:testCreateDeleteName password:TEST_PASSWORD callback:^(BPUser *loggedInsUser, NSError *error) {
-                newUser = loggedInsUser;
-                [Buddy setClientDelegate:nil];
-            }];
-            
-            [[expectFutureValue(newUser.userName) shouldEventually] equal:testCreateDeleteName];
-        });
-        
-        it(@"Should raise a notification of changing of a user.", ^{
-            __block BOOL fin = NO;
-            [Buddy login:testCreateDeleteName password:TEST_PASSWORD callback:^(BPUser *loggedInsUser, NSError *error) {
+            [Buddy loginUser:userName password:TEST_PASSWORD callback:^(id obj, NSError *error) {
+                newUser = (BPModelUser*)obj;
+                [[newUser.userName should] equal:userName];
                 fin = YES;
             }];
             
             [[expectFutureValue(theValue(fin)) shouldEventually] beTrue];
-        });
-        
-        it(@"Should allow you to delete a user.", ^{
-            __block BOOL deleted = NO;
-            
-            [Buddy login:testCreateDeleteName password:TEST_PASSWORD callback:^(BPUser *loggedInsUser, NSError *error) {
-                [[error should] beNil];
-                [loggedInsUser destroy:^(NSError *error){
-                    [[error should] beNil];
-                    deleted = YES;
-                }];
-            }];
-            
-            [[expectFutureValue(theValue(deleted)) shouldEventually] beYes];
-
         });
     });
 });

@@ -10,7 +10,6 @@
 
 #import "MBProgressHUD.h"
 
-#import "BuddySDK/BuddyObject.h"
 
 @interface SocialLoginViewController : UIViewController <MBProgressHUDDelegate>
 

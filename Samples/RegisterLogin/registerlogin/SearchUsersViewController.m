@@ -10,8 +10,6 @@
 #import <QuartzCore/QuartzCore.h>
 
 #import <BuddySDK/Buddy.h>
-#import <BuddySDK/BPUserCollection.h>
-#import <BuddySDK/BPUser.h>
 
 #import "SearchUsersViewController.h"
 #import "UserDetailViewController.h"
@@ -24,7 +22,7 @@
 
 -(void) loadAllUsers;
 - (void) putAllUsers:(NSMutableArray *)users;
--(BPSearchCallback) getAllUsersCallback;
+-(RESTCallback) getAllUsersCallback;
 
 @end
 
@@ -65,14 +63,14 @@
 
 -(void) loadAllUsers
 {
-    [[Buddy users] getAll:[self getAllUsersCallback]];
+    [Buddy GET:@"users" parameters:nil class:[BPModelSearch class] callback:[self getAllUsersCallback]];
 }
 
--(BPSearchCallback) getAllUsersCallback
+-(RESTCallback) getAllUsersCallback
 {
     SearchUsersViewController * __weak weakSelf = self;
     
-    return ^(NSArray *buddyObjects, BPPagingTokens *tokens,NSError *error)
+    return ^(id obj,NSError *error)
     {
         [weakSelf.HUD hide:TRUE afterDelay:0.1];
         weakSelf.HUD = nil;
@@ -83,8 +81,11 @@
             return;
         }
         
+        BPModelSearch *searchResult = (BPModelSearch*)obj;
+        
+        NSArray *searchUsers = [searchResult convertPageResultsToType:[BPModelUser class]];
         NSLog(@"getAllUsersCallback - success Called");
-        [self putAllUsers:[buddyObjects mutableCopy]];
+        [self putAllUsers:[searchUsers mutableCopy]];
         [self.tableView reloadData];
         
     };
@@ -118,7 +119,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
-    BPUser *aUser = [self.filteredUserList objectAtIndex:indexPath.row];
+    BPModelUser *aUser = [self.filteredUserList objectAtIndex:indexPath.row];
     
     if (aUser.firstName || aUser.lastName) {
         cell.textLabel.text = [NSString stringWithFormat:@"%@ (%@ %@)",
@@ -136,7 +137,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    BPUser *aUser = [self.filteredUserList objectAtIndex:indexPath.row];
+    BPModelUser *aUser = [self.filteredUserList objectAtIndex:indexPath.row];
     UserDetailViewController *subVC = [[UserDetailViewController alloc]
                                         initWithNibName:@"UserDetailViewController" bundle:nil];
     subVC.user = aUser;
@@ -157,7 +158,7 @@
     }
     else
     {
-        for(BPUser *user in self.allUsersList)
+        for(BPModelUser *user in self.allUsersList)
         {
             if ([user.firstName rangeOfString:keyword options:NSCaseInsensitiveSearch].location != NSNotFound) {
                 [self.filteredUserList addObject:user];

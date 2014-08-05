@@ -9,9 +9,6 @@
 #import <QuartzCore/QuartzCore.h>
 
 #import <BuddySDK/Buddy.h>
-#import <BuddySDK/BPPictureCollection.h>
-#import <BuddySDK/UIImageView+BPAdditions.h>
-
 
 #import "Constants.h"
 #import "AppDelegate.h"
@@ -27,10 +24,8 @@
 // Set to TRUE in callbacks if an error occurs so that viewDidAppear can retry say after auth failure
 @property (nonatomic,assign) BOOL apiError;
 
-
 -(void) loadUserPhotos;
--(BPSearchCallback) getLoadUserPhotosCallback;
--(BuddyImageResponse) getLoadPhotoDataCallback:(BPPicture*)picture withImage:(UIImageView*)imageView;
+-(RESTCallback) getLoadUserPhotosCallback;
 -(void)doRefreshCollection;
 @end
 
@@ -78,48 +73,15 @@
     [self loadUserPhotos];
 }
 
--(BuddyImageResponse) getLoadPhotoDataCallback:(BPPicture*)picture withImage:(UIImageView*)imageView
-{
-    MainViewController * __weak weakSelf = self;
-    BPPicture * __weak weakPicture = picture;
-    UIImageView * __weak weakimageView = imageView;
-    return ^(UIImage *image,  NSError *error)
-    {
-        if(weakSelf==nil)
-        {
-            return;
-        }
-        
-        if(error!=nil)
-        {
-            return;
-        }
-        
-        if(weakPicture==nil)
-        {
-            return;
-        }
-        
-        [[CommonAppDelegate userPictures] addImage:image withPictureID:weakPicture.id];
-        if(image!=nil)
-        {
-            [weakimageView setImage:image];
-        }
-        [weakSelf.galleryCollection reloadData];
-    };
-
-}
-
 -(void) doRefreshCollection
 {
     [self loadUserPhotos];
 }
 
--(BPSearchCallback) getLoadUserPhotosCallback
+-(RESTCallback) getLoadUserPhotosCallback
 {
-    MainViewController * __weak weakSelf = self;
-    
-    return ^(NSArray *buddyObjects, BPPagingTokens *tokens,NSError *error)
+
+    return ^(id obj,NSError *error)
     {
         if(error!=nil)
         {
@@ -128,7 +90,12 @@
         }
         self.apiError=FALSE;
         NSLog(@"getLoadUserPhotosCallback - success Called");
-        [[CommonAppDelegate userPictures] putPictures: [buddyObjects mutableCopy]];
+        
+        BPModelSearch *searchResults = (BPModelSearch*)obj;
+        
+        NSArray *searchObjects = [searchResults convertPageResultsToType:[BPModelPicture class]];
+        
+        [[CommonAppDelegate userPictures] putPictures: [searchObjects mutableCopy]];
         [self.galleryCollection reloadData];
         
     };
@@ -159,7 +126,7 @@
 
 -(void) loadUserPhotos
 {
-    [[Buddy pictures] getAll:[self getLoadUserPhotosCallback]];
+    [Buddy GET:@"pictures" parameters:nil class:[BPModelSearch class] callback:[self getLoadUserPhotosCallback]];
 }
 
 -(IBAction)doAddPhoto:(id)sender
@@ -199,7 +166,7 @@
     UICollectionViewCell *cell =[cv dequeueReusableCellWithReuseIdentifier:@"PhotoThumb" forIndexPath:indexPath];
     cell.backgroundColor = [UIColor clearColor];
     
-    BPPicture *picture = [[CommonAppDelegate userPictures] pictureAtIndex:indexPath.row];
+    BPModelPicture *picture = [[CommonAppDelegate userPictures] pictureAtIndex:indexPath.row];
     
     if(picture==nil)
     {
@@ -207,38 +174,42 @@
     }
     NSLog (@"Cell for Item at Index: %d PhotoID: %@",indexPath.row, picture.id);
     
-    UIImageView *image = (UIImageView*)[cell viewWithTag:1];
-    image.layer.cornerRadius = DEFAULT_BUT_CORNER_RAD;
-    image.layer.borderWidth = DEFAULT_BUT_BORDER_WIDTH;
-    image.layer.borderColor = [UIColor blackColor].CGColor;
-    image.clipsToBounds = YES;
+    UIImageView *imageView = (UIImageView*)[cell viewWithTag:1];
+    imageView.layer.cornerRadius = DEFAULT_BUT_CORNER_RAD;
+    imageView.layer.borderWidth = DEFAULT_BUT_BORDER_WIDTH;
+    imageView.layer.borderColor = [UIColor blackColor].CGColor;
+    imageView.clipsToBounds = YES;
 
     
     // Now try to find corresponding UIImage
     UIImage *photoImage = [[CommonAppDelegate userPictures] getImageByPictureID:picture.id];
     if(photoImage!=nil)
     {
-        [image setImage:photoImage];
+        [imageView setImage:photoImage];
     }
     else
     {
-        [picture getImage: [self getLoadPhotoDataCallback:picture withImage:image]];
-        NSLog(@"Signed URL: %@",picture.signedUrl);
+        [Buddy GET:[NSString stringWithFormat:@"pictures/%@/file",picture.id] parameters:nil class:[BuddyFile class] callback:^(id obj, NSError *error) {
+            
+            if(error==nil)
+            {
+                BuddyFile *file = (BuddyFile*)obj;
+                
+                UIImage* image = [UIImage imageWithData:file.fileData];
+                [imageView setImage:image];
+                [[CommonAppDelegate userPictures] addImage:image withPictureID:picture.id];
+            }
+            
+        }];
     }
     
     return cell;
 }
 
-/*- (UICollectionReusableView *)collectionView:
- (UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
- {
- return [[UICollectionReusableView alloc] init];
- }*/
-
 #pragma mark - UICollectionViewDelegate
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    BPPicture *picture = [[CommonAppDelegate userPictures] pictureAtIndex:indexPath.row];
+    BPModelPicture *picture = [[CommonAppDelegate userPictures] pictureAtIndex:indexPath.row];
     if(picture==nil)
     {
         return;

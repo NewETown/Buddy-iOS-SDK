@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 Buddy Platform. All rights reserved.
 //
 
-#import <BuddySDK/BPClient.h>
-
 @class MainViewController;
+
+#import <BuddySDK/Buddy.h>
 
 #define CommonAppDelegate (AppDelegate*)[[UIApplication sharedApplication] delegate]
 

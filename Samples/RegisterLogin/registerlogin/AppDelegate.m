@@ -22,7 +22,7 @@
 {
     
     
-    [Buddy initClient: APP_ID appKey: APP_KEY];
+    [Buddy init: APP_ID appKey: APP_KEY];
     
     
     

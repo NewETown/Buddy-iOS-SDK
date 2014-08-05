@@ -8,115 +8,38 @@
 
 #import <Foundation/Foundation.h>
 
-#import "BuddyObject.h"
 #import "BuddyDevice.h"
-#import "BPAlbumItem.h"
-#import "BPClient.h"
-#import "BPCheckin.h"
-#import "BPCheckinCollection.h"
-#import "BPAlbumCollection.h"
-#import "BPPicture.h"
-#import "BPUser.h"
-#import "BPPictureCollection.h"
-#import "BPVideoCollection.h"
-#import "BPBlobCollection.h"
-#import "BPUserCollection.h"
 #import "BPCoordinate.h"
 #import "BPDateRange.h"
-#import "BPBlob.h"
-#import "BPAlbum.h"
-#import "BPLocationCollection.h"
-#import "BPLocation.h"
-#import "BPMetricCompletionHandler.h"
-#import "BPMetadataItem.h"
-#import "BPUserListCollection.h"
-#import "BPNotification.h"
-#import "BPIdentityValue.h"
-#import "BPSize.h"
-#import "BPPagingTokens.h"
 
-/**
- * TODO
- *
- * @since v2.0
- */
+#import "BuddyClientProtocol.h"
+
+#import "BPMetricCompletionHandler.h"
+#import "BPNotification.h"
+#import "BPSize.h"
+
+// Models
+#import "BPModelUser.h"
+#import "BPModelCheckin.h"
+#import "BPModelSearch.h"
+#import "BPModelPicture.h"
+#import "BPModelUserList.h"
+
+#import "BuddyFile.h"
+
 @interface Buddy : NSObject
 
-/**
- * The currently logged in user. Will be nil if no login session has occurred.
+ /* The currently logged in user. Will be nil if no login session has occurred.
  */
-+ (BPUser *)user;
 
-//+ (BuddyDevice *)device;
+//@property (nonatomic,strong) BPModelUser *user;
 
-/**
- * Accessor to create and query checkins.
- */
-+ (BPUserCollection *)users;
++ (BPModelUser*)user;
++ (void) setUser:(BPModelUser*)user;
 
-/**
- * Accessor to create and query checkins.
- */
-+ (BPCheckinCollection *) checkins;
++ (id<BuddyClientProtocol>) currentClient;
 
-/**
- * Accessor to create and query pictures.
- */
-+ (BPPictureCollection *) pictures;
-
-/**
- * Accessor to create and query videos.
- */
-+ (BPVideoCollection *) videos;
-
-/**
- * Accessor to create and query data and files.
- */
-+ (BPBlobCollection *)blobs;
-    
-/**
- * Accessor to create and query albums.
- */
-+ (BPAlbumCollection *)albums;
-
-/**
- * Accesor to create and query user lists.
- */
-+ (BPUserListCollection*)userLists;
-
-/**
- * Accessor to create and query locations.
- */
-+ (BPLocationCollection *)locations;
-
-/**
- * Public REST provider for passthrough access.
- */
-+ (id<BPRestProvider>)buddyRestProvider;
-
-
-/**
- * Used to check if location information is automatically being sent to the server or not.
- *
- * If set to YES then location information will automatically be sent to the server.
- * If set to NO then location information will not be sent.
- *
- * Default: NO
- *
- */
-+ (BOOL) locationEnabled;
-
-/**
- * Determines whether location information will be automatically sent to the server or not.
- *
- * @param enabled     If set to YES then location information will automatically be sent to the server.
- *                    If set to NO then location information will not be sent.
- *
- *                    Default: NO
- */
-+ (void) setLocationEnabled:(BOOL)enabled;
-
-+ (void)setClientDelegate:(id<BPClientDelegate>)delegate;
++ (void) setClientDelegate:(id<BPClientDelegate>)delegate;
 
 /**
  *
@@ -127,20 +50,28 @@
  * @param appKey Your application key.
  *
  */
-+ (void)initClient:(NSString *)appID
++ (id<BuddyClientProtocol>)init:(NSString *)appID
             appKey:(NSString *)appKey;
 
++ (id<BuddyClientProtocol>) init:(NSString *)appID
+                          appKey:(NSString *)appKey
+                     withOptions:(NSDictionary *)options;
 
 /**
  *
  * Create a new Buddy User.
  *
- * @param user     A BPUser object populated with the users information.
- *
- * @param password The new user's password.
  *
  */
-+ (void)createUser:(BPUser *)user password:(NSString *)password callback:(BuddyCompletionCallback)callback;
++ (void)createUser:(NSString*) userName
+          password:(NSString*) password
+         firstName:(NSString*) firstName
+          lastName:(NSString*) lastName
+             email:(NSString*) email
+       dateOfBirth:(NSDate*) dateOfBirth
+            gender:(NSString*) gender
+               tag:(NSString*) tag
+          callback:(BuddyObjectCallback)callback;
 
 /**
  *
@@ -151,7 +82,7 @@
  * @param password  The user's password.
  *
  */
-+ (void)login:(NSString *)username password:(NSString *)password callback:(BuddyObjectCallback)callback;
++ (void)loginUser:(NSString *)username password:(NSString *)password callback:(BuddyObjectCallback)callback;
 
 /**
  *
@@ -165,7 +96,7 @@
  * Logout the current user.
  *
  */
-+ (void)logout:(BuddyCompletionCallback)callback;
++ (void)logoutUser:(BuddyCompletionCallback)callback;
 
 /* 
  * Send a push Notification to one or more users, or user lists.
@@ -223,74 +154,13 @@
  */
 + (void)recordMetric:(NSString *)key andValue:(NSDictionary *)value timeout:(NSInteger)seconds timestamp:(NSDate*)timestamp callback:(BuddyMetricCallback)callback;
 
-
 /**
- * Sets an app-level metadata item.
- *
- * @param metadata      A BPMetaDataItem object prepopulated with the metadata information.
- *
- * @param callback      A callback that is called once the server has processed the request.
- *
+ * REST calls
  */
-+ (void)setMetadata:(BPMetadataItem *)metadata callback:(BuddyCompletionCallback)callback;
-
-/**
- * Sets multiple app-level metadata items
- *
- * @param metadata      A BPMetadataKeyValues prepopulated with the metadata information.
- *
- * @param callback      A callback that is called once the server has processed the request.
- *
- */
-+ (void)setMetadataValues:(BPMetadataKeyValues *)metadata callback:(BuddyCompletionCallback)callback;
-
-/**
- * Retrieves a metadata item for a given key
- *
- * @param key           The metadata key to retrieve.
- *
- * @param visibility    The visibility of the metadata item (User or App etc)
- *
- * @param callback      A callback which is called with the results of the request.
- *
- */
-+ (void)getMetadataWithKey:(NSString *)key visibility:(BPPermissions) visibility callback:(BPMetadataCallback)callback;
-
-/**
- *
- * Searches for multiple metadata items
- *
- * @param search        A BPSearchMetadata prepopulated with the information to search for.
- *
- * @param callback      A callback which is called with the results of the search.
- *
- */
-+ (void)searchMetadata:(BPSearchMetadata *)search callback:(BPSearchCallback)callback;
-
-/**
- * Increment a metadata item's value by a given amount.
- *
- * @param key           The key of the metadata item to increment.
- *
- * @param delta         The amount to increment the value.
- * 
- * @param callback      A callback that is called once the server has processed the request.
- *
- * NOTE: The type of the metadata item must be numeric for this call to succeed. If not, an error will be returned.
- *
- */
-+ (void)incrementMetadata:(NSString *)key delta:(NSInteger)delta callback:(BuddyCompletionCallback)callback;
-
-/**
- * Deletes a metadata item for a given key.
- *
- * @param key           The key of the metadata item to delete.
- *
- * @param permissions   The visibility of the metadata item (User or App etc)
- *
- * @param callback      A callback that is called once the server has processed the request.
- *
- */
-+ (void)deleteMetadataWithKey:(NSString *)key visibility:(BPPermissions)visibility callback:(BuddyCompletionCallback)callback;
++ (void)GET:(NSString *)servicePath parameters:(NSDictionary *)parameters class:(Class)clazz callback:(RESTCallback)callback;
++ (void)POST:(NSString *)servicePath parameters:(NSDictionary *)parameters class:(Class)clazz callback:(RESTCallback)callback;
++ (void)PATCH:(NSString *)servicePath parameters:(NSDictionary *)parameters class:(Class)clazz callback:(RESTCallback)callback;
++ (void)PUT:(NSString *)servicePath parameters:(NSDictionary *)parameters class:(Class)clazz callback:(RESTCallback)callback;
++ (void)DELETE:(NSString *)servicePath parameters:(NSDictionary *)parameters class:(Class)clazz callback:(RESTCallback)callback;
 
 @end

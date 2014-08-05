@@ -6,8 +6,8 @@
 //
 //
 
+#import "BuddyCallbacks.h"
 #import "BPRestProvider.h"
-#import "BPBase.h"
 
 @class BPNotification;
 

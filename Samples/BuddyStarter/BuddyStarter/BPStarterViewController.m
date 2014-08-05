@@ -5,7 +5,7 @@
 //
 
 #import "BPStarterViewController.h"
-#import "BuddySDK/Buddy.h"
+#import <BuddySDK/Buddy.h>
 
 @interface BPStarterViewController ()
 
@@ -21,12 +21,15 @@
     
 }
 
--(void)checkUser {
+-(void)refreshUser {
     
-    [[Buddy users] getUser:@"me" callback:^(id u, NSError *error) {
-        BPUser* user = u;
+    [Buddy GET:@"users/me" parameters:nil class:[BPModelUser class] callback:^(id u, NSError *error) {
+        BPModelUser *user = u;
         if (user && user.userName) {
             self.message.text = [[NSString alloc] initWithFormat:@"Hello, %@.", user.userName];
+        }
+        else {
+            self.message.text = @"";
         }
        
     }];
@@ -34,19 +37,13 @@
 
 -(void)viewDidAppear:(BOOL)animated {
     
-    message.text = @"Loading...";
+    self.message.text = @"Loading...";
+    
+    BPModelUser *user = [Buddy user];
     
     // load the current user's information
     //
-    if ([Buddy user] != nil) {
-        [[Buddy user] refresh:^(NSError *error) {
-            self.message.text = [[NSString alloc] initWithFormat:@"Hello, %@.", [[Buddy user] userName]];
-        }];
-    }
-    else {
-        [self checkUser];
-    }
-    
+    [self refreshUser];
 }
 
 
@@ -56,11 +53,11 @@
 
     self.message.text = @"";
 
-    [Buddy logout:^(NSError *error) {
+    [Buddy logoutUser:^(NSError *error) {
         
         // calling check user will cause the login dialog to pop
         // when user auth fails.
-        [weakSelf checkUser];
+        [weakSelf refreshUser];
     }];
 }
 @end

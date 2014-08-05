@@ -22,7 +22,7 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     self.window.backgroundColor = [UIColor whiteColor];
-    [Buddy initClient: APP_ID appKey: APP_KEY ];
+    [Buddy init: APP_ID appKey: APP_KEY ];
     
     // Create/Clear all caches/data etc.
     [self clearDownloadedData];
@@ -113,7 +113,7 @@
 
 -(void)doLogout
 {
-    [Buddy logout:^(NSError *error)
+    [Buddy logoutUser:^(NSError *error)
      {
          NSLog(@"Logout Callback Called");
      }];

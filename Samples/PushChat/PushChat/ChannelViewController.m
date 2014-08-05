@@ -15,7 +15,7 @@
 
 @interface ChannelViewController ()
 
-@property (nonatomic,strong) BPUserList *channel;
+@property (nonatomic,strong) BPModelUserList *channel;
 @end
 
 @implementation ChannelViewController
@@ -29,7 +29,7 @@
     return self;
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil channel:(BPUserList*)channel
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil channel:(BPModelUserList*)channel
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
@@ -71,7 +71,8 @@
 -(IBAction)deleteList:(id)sender
 {
     __weak ChannelViewController *weakSelf = self;
-    [self.channel destroy:^(NSError *error) {
+    
+    [Buddy DELETE: [NSString stringWithFormat:@"users/lists/%@",self.channel.id] parameters:nil class:[NSDictionary class] callback:^(id obj, NSError *error) {
         if(error!=nil)
         {
             UIAlertView *alert =
@@ -102,7 +103,8 @@
         return;
     }
     
-    [self.channel addUser:Buddy.user callback:^(BOOL result, NSError *error) {
+    [Buddy PUT: [NSString stringWithFormat:@"users/lists/%@/items/%@",self.channel.id,[Buddy user].id]
+     parameters:nil class:[NSNumber class] callback:^(id obj, NSError *error) {
     
         if(error!=nil)
         {
@@ -116,6 +118,15 @@
             return;
 
         }
+         
+         NSNumber *numberResult = (NSNumber*)obj;
+         
+         
+         BOOL result = NO;
+         if([numberResult isEqualToNumber:[NSNumber numberWithInt:1]])
+         {
+             result=YES;
+         }
         
         if(result==NO)
         {
@@ -131,6 +142,7 @@
 
         }
         
+         
         UIAlertView *alert =
         [[UIAlertView alloc] initWithTitle: @"Joined"
                                    message: @"You joined the list"
@@ -158,7 +170,7 @@
         return;
     }
     
-    [self.channel deleteUser:Buddy.user callback:^(BOOL result, NSError *error) {
+    [Buddy DELETE:[NSString stringWithFormat:@"users/lists/%@/items/%@",self.channel.id,[Buddy user].id] parameters:nil class:[NSNumber class] callback:^(id obj, NSError *error) {
         
         if(error!=nil)
         {
@@ -172,6 +184,16 @@
             return;
             
         }
+        
+        NSNumber *numberResult = (NSNumber*)obj;
+        
+        
+        BOOL result = NO;
+        if([numberResult isEqualToNumber:[NSNumber numberWithInt:1]])
+        {
+            result=YES;
+        }
+        
         
         if(result==NO)
         {

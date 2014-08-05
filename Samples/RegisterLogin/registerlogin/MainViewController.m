@@ -16,10 +16,8 @@
 #import "AppDelegate.h"
 #import "MainViewController.h"
 #import "ChangeProfilePictureViewController.h"
-#import "ResetPasswordViewController.h"
 #import "ChangeNameBirthdayVC.h"
 #import "SearchUsersViewController.h"
-#import "IdentitiesViewController.h"
 
 #import <BuddySDK/Buddy.h>
 
@@ -27,9 +25,8 @@
 
 @property (nonatomic,strong) MBProgressHUD *HUD;
 
-- (BuddyCompletionCallback) getRefreshCallback;
-- (BuddyCompletionCallback) getClearUserCallback;
-- (BuddyCompletionCallback) getDeleteCallback;
+- (RESTCallback) getRefreshCallback;
+- (RESTCallback) getDeleteCallback;
 
 @end
 
@@ -73,31 +70,28 @@
     
 }
 
-- (BuddyCompletionCallback) getRefreshCallback
+- (RESTCallback) getRefreshCallback
 {
     MainViewController * __weak weakSelf = self;
     
-    return ^(NSError *error)
+    return ^(id obj,NSError *error)
     {
         [weakSelf.HUD hide:TRUE afterDelay:0.1];
         self.HUD=nil;
-    };
-}
-
-- (BuddyCompletionCallback) getClearUserCallback
-{
-    MainViewController * __weak weakSelf = self;
-    
-    return ^(NSError *error)
-    {
-        [weakSelf.HUD hide:TRUE afterDelay:0.1];
-        self.HUD=nil;
+        
+        if(error!=nil)
+        {
+            BPModelUser *user = (BPModelUser*)obj;
+            
+            
+            Buddy.user = user;
+        }
     };
 }
 
 - (void)doLogout
 {
-    [Buddy logout:^(NSError *error)
+    [Buddy logoutUser:^(NSError *error)
      {
          NSLog(@"Logout Callback Called");
      }];
@@ -112,7 +106,7 @@
     self.HUD.dimBackground = YES;
     self.HUD.delegate=self;
     
-    [Buddy.user refresh:[self getRefreshCallback]];
+    [Buddy GET:@"users/me" parameters:nil class:[BPModelUser class] callback:[self getRefreshCallback]];
     
 }
 
@@ -123,7 +117,13 @@
     self.HUD.dimBackground = YES;
     self.HUD.delegate=self;
 
-    [Buddy logout:[self getClearUserCallback]];
+    [Buddy logoutUser:^(NSError *error)
+     {
+         [self.HUD hide:TRUE afterDelay:0.1];
+         self.HUD=nil;
+         Buddy.user=nil;
+     }];
+
     [CommonAppDelegate authorizationNeedsUserLogin];
 }
 
@@ -131,14 +131,6 @@
 {
     ChangeProfilePictureViewController *subVC = [[ChangeProfilePictureViewController alloc]
                                             initWithNibName:@"ChangeProfilePictureViewController" bundle:nil];
-    
-    [ [CommonAppDelegate navController] pushViewController:subVC animated:YES];
-}
-
-- (IBAction)doResetPassword:(id)sender
-{
-    ResetPasswordViewController *subVC = [[ResetPasswordViewController alloc]
-                                                      initWithNibName:@"ResetPasswordViewController" bundle:nil];
     
     [ [CommonAppDelegate navController] pushViewController:subVC animated:YES];
 }
@@ -171,7 +163,7 @@
         self.HUD.dimBackground = YES;
         self.HUD.delegate=self;
         
-        [[Buddy user] destroy:[self getDeleteCallback]];
+        [Buddy DELETE:@"users/me" parameters:nil class:[NSDictionary class] callback:[self getDeleteCallback]];
 	}
 }
 
@@ -189,18 +181,11 @@
     
 }
 
-- (IBAction)doIdentities:(id)sender {
-    IdentitiesViewController *subVC = [[IdentitiesViewController alloc]
-                                        initWithNibName:@"IdentitiesViewController" bundle:nil];
-    
-    [ [CommonAppDelegate navController] pushViewController:subVC animated:YES];
-}
-
-- (BuddyCompletionCallback) getDeleteCallback
+- (RESTCallback) getDeleteCallback
 {
     MainViewController * __weak weakSelf = self;
     
-    return ^(NSError *error)
+    return ^(id obj,NSError *error)
     {
         [weakSelf.HUD hide:TRUE afterDelay:0.1];
         weakSelf.HUD=nil;
@@ -217,6 +202,8 @@
             [alert show];
             return;
         }
+        
+        Buddy.user=nil;
         
         NSLog(@"Deleting user - success Called");
         [CommonAppDelegate authorizationNeedsUserLogin];
@@ -241,7 +228,7 @@
     }
     if (self.isMovingFromParentViewController)
     {
-        [Buddy logout:nil];
+        [Buddy logoutUser:nil];
     }
 }
 

@@ -6,8 +6,7 @@
 //  Copyright (c) 2014 Buddy Platform. All rights reserved.
 //
 
-#import <BuddySDK/BuddyObject.h>
-#import <BuddySDK/BPPicture.h>
+#import <BuddySDK/Buddy.h>
 
 #import "PictureList.h"
 #import "ImageCache.h"
@@ -54,14 +53,14 @@
     self.pictureList = pictures;
 }
 
--(BPPicture*)getPictureByID:(NSString*)pictureID
+-(BPModelPicture*)getPictureByID:(NSString*)pictureID
 {
     if(pictureID==nil)
     {
         return nil;
     }
     
-    for(BPPicture *picture in self.pictureList)
+    for(BPModelPicture *picture in self.pictureList)
     {
         if([pictureID compare:picture.id]==0 )
         {
@@ -71,7 +70,7 @@
     return nil;
 }
 
--(void) addPicture:(BPPicture*)picture
+-(void) addPicture:(BPModelPicture*)picture
 {
     if(self.pictureList==nil)
     {
@@ -86,7 +85,7 @@
     [self.pictureList addObject:picture];
 }
 
--(BPPicture*)pictureAtIndex:(NSInteger)index
+-(BPModelPicture*)pictureAtIndex:(NSInteger)index
 {
     if(index< [self count])
     {
@@ -103,7 +102,7 @@
     }
     
     NSInteger index=0;
-    for(BPPicture *picture in self.pictureList)
+    for(BPModelPicture *picture in self.pictureList)
     {
         if([pictureID isEqualToString:picture.id])
         {
@@ -114,7 +113,7 @@
     return NSNotFound;
 }
 
--(void) removePicture:(BPPicture*)picture andImage:(BOOL) andImage
+-(void) removePicture:(BPModelPicture*)picture andImage:(BOOL) andImage
 {
     NSInteger pictureIndex = [self findIndexOfPictureByID:picture.id];
     if(pictureIndex!=NSNotFound)
@@ -149,6 +148,7 @@
 {
     return [self.cache count];
 }
+
 -(UIImage*)getImageByPictureID:(NSString*)pictureID
 {
     return [self.cache getImageByPictureID:pictureID];

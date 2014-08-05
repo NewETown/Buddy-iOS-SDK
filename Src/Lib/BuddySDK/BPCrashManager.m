@@ -371,7 +371,7 @@
                                  @"methodName": exceptionMethodName,
                                  @"stackTrace": crashedThreadString};
     
-    [self.restProvider POST:@"devices/current/crashreports" parameters:parameters callback:^(id json, NSError *error) {
+    [self.restProvider POST:@"devices/current/crashreports"  parameters:parameters class:[NSDictionary class] callback:^(id json, NSError *error) {
         if (!error) {
             onSuccess();
         }

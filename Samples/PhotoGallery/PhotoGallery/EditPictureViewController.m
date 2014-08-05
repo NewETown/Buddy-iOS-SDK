@@ -7,38 +7,36 @@
 //
 #import <QuartzCore/QuartzCore.h>
 
-#import <BuddySDK/BuddyObject.h>
-#import <BuddySDK/BPPicture.h>
-#import <BuddySDK/BPMetadataItem.h>
-
 #import "Constants.h"
 #import "AppDelegate.h"
 #import "PictureList.h"
 
 #import "EditPictureViewController.h"
 
+#import <BuddySDK/Buddy.h>
+
 #define TAG_META_KEY @"TAG"
 
 @interface EditPictureViewController ()
 @property (nonatomic,strong) MBProgressHUD *HUD;
-@property (nonatomic,strong) BPPicture *picture;
+@property (nonatomic,strong) BPModelPicture *picture;
 @property (nonatomic,strong) NSString *tagString;
 -(void) goBack;
 
 -(void) populateUI;
 
 -(void) resignTextFields;
--(BuddyCompletionCallback) getSavePhotoCallback;
--(BuddyCompletionCallback) getSaveTagCallback;
--(BuddyCompletionCallback) getDeletePhotoCallback;
--(BPMetadataCallback) getFetchMetadataCallback;
+-(RESTCallback) getSavePhotoCallback;
+-(RESTCallback) getSaveTagCallback;
+-(RESTCallback) getDeletePhotoCallback;
+-(RESTCallback) getFetchMetadataCallback;
 
 -(void) loadMetaData;
 @end
 
 @implementation EditPictureViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil andPicture:(BPPicture*) picture
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil andPicture:(BPModelPicture*) picture
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
@@ -70,11 +68,11 @@
     [self populateUI];
 }
 
--(BuddyCompletionCallback) getSavePhotoCallback
+-(RESTCallback) getSavePhotoCallback
 {
     EditPictureViewController * __weak weakSelf = self;
     
-    return ^(NSError *error)
+    return ^(id obj,NSError *error)
     {
         [weakSelf.HUD hide:TRUE afterDelay:0.1];
         weakSelf.HUD=nil;
@@ -91,22 +89,21 @@
             return;
         }
         
+        NSDictionary *params = @{@"value": weakSelf.tagString,
+                                 @"visibility" : @"App"};
         
-        BPMetadataItem *i = [BPMetadataItem new];
-        i.value = weakSelf.tagString;
-        i.key = TAG_META_KEY;
-        i.visibility = BPPermissionsApp;
+        [Buddy PUT:[NSString stringWithFormat:@"metadata/%@/%@",self.picture.id,TAG_META_KEY]
+        parameters:params class:[NSDictionary class] callback:[weakSelf getSaveTagCallback]];
+        
         NSLog(@"SavePhotoCallback - success Called");
-        [weakSelf.picture setMetadata:i callback:[weakSelf getSaveTagCallback]];
-        
     };
     
 }
--(BuddyCompletionCallback) getDeletePhotoCallback
+-(RESTCallback) getDeletePhotoCallback
 {
     EditPictureViewController * __weak weakSelf = self;
     
-    return ^(NSError *error)
+    return ^(id obj, NSError *error)
     {
         [weakSelf.HUD hide:TRUE afterDelay:0.1];
         weakSelf.HUD=nil;
@@ -131,10 +128,10 @@
 
 }
 
--(BuddyCompletionCallback) getSaveTagCallback
+-(RESTCallback) getSaveTagCallback
 {
     EditPictureViewController * __weak weakSelf = self;
-    return ^(NSError *error)
+    return ^(id obj, NSError *error)
     {
         [weakSelf.HUD hide:TRUE afterDelay:0.1];
         weakSelf.HUD=nil;
@@ -157,18 +154,19 @@
 
 }
 
--(BPMetadataCallback) getFetchMetadataCallback
+-(RESTCallback) getFetchMetadataCallback
 {
     EditPictureViewController * __weak weakSelf = self;
-    return ^(id newBuddyObject, NSError *error)
+    return ^(id obj, NSError *error)
     {
         [weakSelf.HUD hide:TRUE afterDelay:0.1];
         weakSelf.HUD=nil;
         
         if(error==nil)
         {
-            BPMetadataItem *metaData = newBuddyObject;
-            self.tagString = metaData.value;
+            NSDictionary *meta = (NSDictionary*)obj;
+           
+            self.tagString = [meta objectForKey:@"value"];
             [self populateUI];
         }
     };
@@ -220,8 +218,7 @@
         return;
     }
     
-    [self.picture destroy:[self getDeletePhotoCallback]];
-
+    [Buddy DELETE:[NSString stringWithFormat:@"pictures/%@",self.picture.id] parameters:nil class:[NSDictionary class] callback:[self getDeletePhotoCallback]];
 }
 
 -(IBAction)doSave:(id)sender
@@ -234,9 +231,11 @@
     self.picture.caption = self.commentText.text;
     self.tagString = self.tagText.text;
     
-    [self.picture save:[self getSavePhotoCallback]];
+    NSDictionary *parameters = @{@"caption": self.commentText.text,
+                                 @"tag": self.tagText.text};
     
-}
+    [Buddy PATCH:[NSString stringWithFormat:@"pictures/%@",self.picture.id] parameters:parameters class:[BPModelPicture class] callback:[self getSavePhotoCallback]];
+  }
 
 -(void) loadMetaData
 {
@@ -244,7 +243,12 @@
     self.HUD.labelText= @"Loading Tag Info";
     self.HUD.dimBackground = YES;
     self.HUD.delegate=self;
-    [self.picture getMetadataWithKey:TAG_META_KEY visibility:BPPermissionsApp callback:[self getFetchMetadataCallback]];
+    
+    NSDictionary *parameters = @{@"visibility": @"App"};
+    
+    [Buddy GET:[NSString stringWithFormat:@"metadata/%@/%@",self.picture.id,TAG_META_KEY] parameters:parameters
+         class:[NSDictionary class] callback:[self getFetchMetadataCallback]];
+    
 }
 - (void)didReceiveMemoryWarning
 {

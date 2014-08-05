@@ -83,7 +83,7 @@
 - (void) tableView: (UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ViewChannelListItem *item = [self.table.table objectAtIndex:indexPath.row];
-    BPUserList *list = [[CommonAppDelegate channels] getChannel:item.listID];
+    BPModelUserList *list = [[CommonAppDelegate channels] getChannel:item.listID];
     
     ChannelViewController *vc = [[ChannelViewController alloc] initWithNibName:@"ChannelViewController" bundle:nil channel:list];
     [ [CommonAppDelegate navController] pushViewController:vc animated:YES];
@@ -114,7 +114,7 @@
 
     checked.checked =item.isChecked;
     
-    BPUserList *list = [[CommonAppDelegate channels] getChannel:item.listID];
+    BPModelUserList *list = [[CommonAppDelegate channels] getChannel:item.listID];
     
     if(list==nil)
     {
@@ -179,7 +179,7 @@
 
 - (void)doLogout
 {
-    [Buddy logout:^(NSError *error)
+    [Buddy logoutUser:^(NSError *error)
      {
          NSLog(@"Logout Callback Called");
      }];
@@ -226,10 +226,9 @@
 
 -(void)doDownload
 {
-    BPSearchUserList *props = [BPSearchUserList new];
-    props.readPermissions = BPPermissionsApp;
-    
-    [Buddy.userLists searchUserLists:props callback:^(NSArray *buddyObjects, BPPagingTokens *pagingToken, NSError *error)
+    NSDictionary *parameters = @{@"readPermissions": @"App"};
+
+    [Buddy GET:@"users/lists" parameters:parameters class:[BPModelSearch class] callback:^(id obj,NSError *error)
     {
         if(error!=nil)
         {
@@ -246,11 +245,13 @@
         
         [self.table clear];
         
-        for(id obj in buddyObjects)
+        BPModelSearch *searchResult = (BPModelSearch*)obj;
+        
+        NSArray *searchItems = [searchResult convertPageResultsToType:[BPModelUserList class]];
+        
+        for(BPModelUserList* userList in searchItems)
         {
-            BPUserList *userList = (BPUserList*)obj;
-            
-            [[CommonAppDelegate channels]  addChannel:obj];
+            [[CommonAppDelegate channels]  addChannel:userList];
             ViewChannelListItem *newItem = [[ViewChannelListItem alloc]init];
             newItem.listID =userList.id;
             newItem.isChecked=NO;

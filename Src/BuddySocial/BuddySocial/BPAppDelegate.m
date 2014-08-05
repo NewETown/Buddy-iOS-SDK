@@ -22,11 +22,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [Buddy initClient:APP_NAME appKey:APP_KEY];
+    [Buddy init:APP_NAME appKey:APP_KEY];
     [application registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge|
      UIRemoteNotificationTypeAlert|
      UIRemoteNotificationTypeSound];
-    [Buddy setLocationEnabled:YES];
     // Ensure FB libraries are loaded before ViewControllers get there (from docs).
     [FBLoginView class];
     

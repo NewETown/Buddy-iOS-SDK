@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
@@ -9,10 +9,8 @@
                 <outlet property="changeNameBirthdayBut" destination="RgB-Dp-1a9" id="F8c-cd-UR5"/>
                 <outlet property="changeProfilePictureBut" destination="ys7-qF-0Ie" id="ZnE-EH-qiK"/>
                 <outlet property="deleteUserBut" destination="Evg-0h-807" id="CMl-dc-gkn"/>
-                <outlet property="identitiesBut" destination="Qxa-So-K16" id="50j-pw-L9G"/>
                 <outlet property="mainLabel" destination="m29-gs-dgk" id="mNg-mt-afu"/>
                 <outlet property="refreshBut" destination="s47-PN-hWN" id="PXS-f5-3mz"/>
-                <outlet property="resetPasswordBut" destination="KLu-Pa-No5" id="xhS-yN-SCy"/>
                 <outlet property="searchUserBut" destination="XEF-D0-emT" id="vSW-pG-Uhb"/>
                 <outlet property="view" destination="1" id="3"/>
             </connections>
@@ -29,7 +27,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s47-PN-hWN">
-                    <rect key="frame" x="20" y="416" width="94" height="30"/>
+                    <rect key="frame" x="20" y="340" width="94" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <state key="normal" title="Refresh User"/>
                     <connections>
@@ -44,14 +42,6 @@
                         <action selector="doChangeProfilePicture:" destination="-1" eventType="touchUpInside" id="K9e-kb-CrI"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KLu-Pa-No5">
-                    <rect key="frame" x="20" y="302" width="232" height="30"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" title="Reset Password"/>
-                    <connections>
-                        <action selector="doResetPassword:" destination="-1" eventType="touchUpInside" id="h9c-ld-ic9"/>
-                    </connections>
-                </button>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RgB-Dp-1a9">
                     <rect key="frame" x="20" y="188" width="232" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -61,7 +51,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XEF-D0-emT">
-                    <rect key="frame" x="20" y="378" width="232" height="30"/>
+                    <rect key="frame" x="20" y="302" width="232" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <state key="normal" title="List Users"/>
                     <connections>
@@ -69,19 +59,11 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Evg-0h-807">
-                    <rect key="frame" x="20" y="340" width="232" height="30"/>
+                    <rect key="frame" x="20" y="264" width="232" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <state key="normal" title="Close account (Delete User)"/>
                     <connections>
                         <action selector="doDeleteUser:" destination="-1" eventType="touchUpInside" id="5tY-oK-idP"/>
-                    </connections>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qxa-So-K16">
-                    <rect key="frame" x="20" y="264" width="232" height="30"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" title="Identities"/>
-                    <connections>
-                        <action selector="doIdentities:" destination="-1" eventType="touchUpInside" id="Y7K-UU-61D"/>
                     </connections>
                 </button>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Use the options below to manage your account" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="q7T-OU-iwC">

@@ -19,7 +19,7 @@
 @property (nonatomic,strong) MBProgressHUD *HUD;
 
 
-- (BuddyCompletionCallback) getUpdateProfileCallback;
+- (RESTCallback) getUpdateProfileCallback;
 
 @end
 
@@ -101,18 +101,18 @@
     self.HUD.dimBackground = YES;
     self.HUD.delegate=self;
 
-    [Buddy user].firstName = self.firstNameField.text;
-    [Buddy user].lastName = self.lastNameField.text;
-    [Buddy user].dateOfBirth = self.birthdayPicker.date;
+    NSDictionary *parameters = @{@"firstName": self.firstNameField.text,
+                                 @"lastName": self.lastNameField.text,
+                                 @"dateOfBirth" : self.birthdayPicker.date};
     
-    [[Buddy user] save:[self getUpdateProfileCallback]];
+    [Buddy PATCH:@"users/me" parameters:parameters class:[BPModelUser class] callback:[self getUpdateProfileCallback]];
 }
 
-- (BuddyCompletionCallback) getUpdateProfileCallback
+- (RESTCallback) getUpdateProfileCallback
 {
     ChangeNameBirthdayVC * __weak weakSelf = self;
     
-    return ^(NSError *error)
+    return ^(id obj,NSError *error)
     {
         [weakSelf.HUD hide:TRUE afterDelay:0.1];
         weakSelf.HUD=nil;
@@ -129,6 +129,12 @@
             [alert show];
             return;
         }
+        
+        BPModelUser *user = (BPModelUser*)obj;
+        
+        Buddy.user = user;
+        
+        [Buddy setUser:user];
         
         NSLog(@"Change name and birthday - success Called");
         [[self navigationController] popViewControllerAnimated:YES];

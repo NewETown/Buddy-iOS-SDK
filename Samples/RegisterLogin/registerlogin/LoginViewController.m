@@ -112,7 +112,7 @@
     self.HUD.dimBackground = YES;
     self.HUD.delegate=self;
     
-    [Buddy login:self.userNameTextField.text
+    [Buddy loginUser:self.userNameTextField.text
         password:self.passwordTextField.text
         callback:[self getLoginCallback]];
     

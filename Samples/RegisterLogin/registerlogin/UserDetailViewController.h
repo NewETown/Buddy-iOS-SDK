@@ -7,12 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <BuddySDK/BPUser.h>
 #import "MBProgressHUD.h"
+
+@class BPModelUser;
 
 @interface UserDetailViewController : UIViewController<MBProgressHUDDelegate>
 
-@property (retain) BPUser *user;
+@property (retain) BPModelUser *user;
 
 @property (weak, nonatomic) IBOutlet UITextField *userNameField;
 @property (weak, nonatomic) IBOutlet UITextField *firstNameField;

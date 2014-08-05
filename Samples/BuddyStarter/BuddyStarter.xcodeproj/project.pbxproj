@@ -21,12 +21,10 @@
 		293ABF9F19453942003B8922 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 293ABF9E19453942003B8922 /* XCTest.framework */; };
 		293ABFA019453942003B8922 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 293ABF7C19453942003B8922 /* Foundation.framework */; };
 		293ABFA119453942003B8922 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 293ABF8019453942003B8922 /* UIKit.framework */; };
-		293ABFB519453991003B8922 /* BuddySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 293ABFB419453991003B8922 /* BuddySDK.framework */; };
 		293ABFB71945399A003B8922 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 293ABFB61945399A003B8922 /* MobileCoreServices.framework */; };
 		293ABFB9194539B2003B8922 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 293ABFB8194539B2003B8922 /* SystemConfiguration.framework */; };
 		293ABFBB194539BF003B8922 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 293ABFBA194539BF003B8922 /* CoreLocation.framework */; };
 		293ABFBD194539CD003B8922 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 293ABFBC194539CD003B8922 /* CFNetwork.framework */; };
-		293ABFBF19453A23003B8922 /* BuddySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 293ABFBE19453A23003B8922 /* BuddySDK.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,12 +56,10 @@
 		293ABF8019453942003B8922 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		293ABF9D19453942003B8922 /* BuddyStarterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BuddyStarterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		293ABF9E19453942003B8922 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		293ABFB419453991003B8922 /* BuddySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BuddySDK.framework; path = "../../../../../../../Library/Developer/Xcode/DerivedData/BuddySDK-gdgmuzlpknqmpzgfgruxhhnkjbfv/Build/Products/Debug-iphoneos/BuddySDK.framework"; sourceTree = "<group>"; };
 		293ABFB61945399A003B8922 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		293ABFB8194539B2003B8922 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		293ABFBA194539BF003B8922 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		293ABFBC194539CD003B8922 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
-		293ABFBE19453A23003B8922 /* BuddySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BuddySDK.framework; path = "../../../../../../../Library/Developer/Xcode/DerivedData/BuddySDK-gdgmuzlpknqmpzgfgruxhhnkjbfv/Build/Products/Debug-iphoneos/BuddySDK.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,11 +68,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				293ABFBD194539CD003B8922 /* CFNetwork.framework in Frameworks */,
-				293ABFBF19453A23003B8922 /* BuddySDK.framework in Frameworks */,
 				293ABFBB194539BF003B8922 /* CoreLocation.framework in Frameworks */,
 				293ABFB9194539B2003B8922 /* SystemConfiguration.framework in Frameworks */,
 				293ABFB71945399A003B8922 /* MobileCoreServices.framework in Frameworks */,
-				293ABFB519453991003B8922 /* BuddySDK.framework in Frameworks */,
 				293ABF7F19453942003B8922 /* CoreGraphics.framework in Frameworks */,
 				293ABF8119453942003B8922 /* UIKit.framework in Frameworks */,
 				293ABF7D19453942003B8922 /* Foundation.framework in Frameworks */,
@@ -117,12 +111,10 @@
 		293ABF7B19453942003B8922 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				293ABFBE19453A23003B8922 /* BuddySDK.framework */,
 				293ABFBC194539CD003B8922 /* CFNetwork.framework */,
 				293ABFBA194539BF003B8922 /* CoreLocation.framework */,
 				293ABFB8194539B2003B8922 /* SystemConfiguration.framework */,
 				293ABFB61945399A003B8922 /* MobileCoreServices.framework */,
-				293ABFB419453991003B8922 /* BuddySDK.framework */,
 				293ABF7C19453942003B8922 /* Foundation.framework */,
 				293ABF7E19453942003B8922 /* CoreGraphics.framework */,
 				293ABF8019453942003B8922 /* UIKit.framework */,
@@ -373,6 +365,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/BuddySDK-gdgmuzlpknqmpzgfgruxhhnkjbfv/Build/Products/Debug-iphoneos",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BuddyStarter/BuddyStarter-Prefix.pch";
@@ -390,6 +383,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/BuddySDK-gdgmuzlpknqmpzgfgruxhhnkjbfv/Build/Products/Debug-iphoneos",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BuddyStarter/BuddyStarter-Prefix.pch";

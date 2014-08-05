@@ -10,7 +10,6 @@
 
 #import <UIKit/UIKit.h>
 
-#import "BuddySDK/BuddyObject.h"
 
 
 @interface RegisterViewController : UIViewController <MBProgressHUDDelegate>

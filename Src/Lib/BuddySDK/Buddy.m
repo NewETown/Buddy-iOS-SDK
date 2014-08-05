@@ -15,200 +15,175 @@
  */
 
 #import "Buddy.h"
-#import "BuddyObject+Private.h"
-
-/// <summary>
-/// TODO
-/// </summary>
+#import "Buddy+Private.h"
+#import "BPClient.h"
 
 @implementation Buddy
 
-+ (id<BPRestProvider>)buddyRestProvider {
-    return [BPClient defaultClient].restService;
+static NSMutableDictionary *clients;
+
+static BPClient* currentClient;
+
++(id<BuddyClientProtocol>)currentClient{
+    return currentClient;
 }
 
-+ (BPUser *)user
++(BPClient*) currentClientObject
 {
-    return [[BPClient defaultClient] user];
+    return currentClient;
 }
 
-+ (BPUserCollection *)users
++ (BPModelUser *)user
 {
-    return [[BPClient defaultClient] users];
+    return [[self currentClient] currentUser];
 }
 
-+ (BuddyDevice *)device
++ (void) setUser:(BPModelUser *)user
 {
-    return [[BPClient defaultClient] device];
+    [[self currentClientObject] setCurrentUser:user];
 }
 
-+ (BPCheckinCollection *) checkins
-{
-    return [[BPClient defaultClient] checkins];
-}
-
-+ (BPPictureCollection *) pictures
-{
-    return [[BPClient defaultClient] pictures];
-}
-
-+ (BPVideoCollection *) videos
-{
-    return [[BPClient defaultClient] videos];
-}
-
-+ (BPBlobCollection *) blobs
-{
-    return [[BPClient defaultClient] blobs];
-}
-
-+ (BPAlbumCollection *) albums
-{
-    return [[BPClient defaultClient] albums];
-}
-
-+ (BPLocationCollection *) locations
-{
-    return [[BPClient defaultClient] locations];
-}
-
-+ (BPUserListCollection *) userLists
-{
-    return [[BPClient defaultClient] userLists];
-}
-
-+ (BOOL) locationEnabled
-{
-    return [[BPClient defaultClient] locationEnabled];
-}
-
-+ (void) setLocationEnabled:(BOOL)val
-{
-    [[BPClient defaultClient] setLocationEnabled:val];
++(void)initialize{
+    clients = [[NSMutableDictionary alloc] init];
 }
 
 + (void)setClientDelegate:(id<BPClientDelegate>)delegate
 {
-    [BPClient defaultClient].delegate = delegate;
+    currentClient.delegate = delegate;
 }
 
-+ (void)initClient:(NSString *)appID
++ (id<BuddyClientProtocol>)init:(NSString *)appID
             appKey:(NSString *)appKey
 {
-    
-	[Buddy initClient:appID
-            appKey:appKey
-            autoRecordDeviceInfo:NO
-            autoRecordLocation:NO
-            withOptions:nil];
+    return [self init:appID appKey:appKey autoRecordDeviceInfo:NO
+               instanceName:nil];
 }
 
 
-+ (void) initClient:(NSString *)appID
++ (id<BuddyClientProtocol>)init:(NSString *)appID
+                  appKey:(NSString *)appKey
+    autoRecordDeviceInfo:(BOOL)autoRecordDeviceInfo
+            instanceName:(NSString *)instanceName
+{
+    NSMutableDictionary *defaultOptions = [@{@"autoRecordDeviceInfo": @(autoRecordDeviceInfo)} mutableCopy];
+    
+    if(instanceName != nil)
+    {
+        [defaultOptions setObject:instanceName forKey:@"instanceName"];
+    }
+    return [self init:appID
+                      appKey:appKey
+                 withOptions:defaultOptions];
+}
+
++ (id<BuddyClientProtocol>) init:(NSString *)appID
             appKey:(NSString *)appKey
             withOptions:(NSDictionary *)options
-
 {
-    [[BPClient defaultClient] setupWithApp:appID
-            appKey:appKey
-            options:options
-            delegate:nil];
-}
-
-+ (void) initClient:(NSString *)appID
-            appKey:(NSString *)appKey
-            autoRecordDeviceInfo:(BOOL)autoRecordDeviceInfo
-            autoRecordLocation:(BOOL)autoRecordLocation
-            withOptions:(NSDictionary *)options
-{
+    NSString *clientKey = [NSString stringWithFormat:@"%@%@", appID, options[@"instanceName"]];
     
-    NSDictionary *defaultOptions = @{@"autoRecordLocation": @(autoRecordLocation),
-                                     @"autoRecordDeviceInfo": @(autoRecordDeviceInfo)};
     
-    NSMutableDictionary *combined = [NSMutableDictionary dictionaryWithDictionary:defaultOptions];
-    
-    [[BPClient defaultClient] setupWithApp:appID
-            appKey:appKey
-            options:combined
-            delegate:nil];
-    
+    if ([clients objectForKey:clientKey]) {
+        currentClient = [clients objectForKey:clientKey];
+        return currentClient;
+    } else {
+        BPClient* client = [[BPClient alloc] init];
+        [client setupWithApp:appID appKey:appKey options:options delegate:nil];
+        
+        [clients setValue:client forKey:clientKey];
+        currentClient = client;
+        
+        return client;
+    }
 }
 
 #pragma mark User
 
 
-+ (void)createUser:(BPUser *)user
-          password:(NSString *)password
-          callback:(BuddyCompletionCallback)callback
++ (void)createUser:(NSString*) userName
+          password:(NSString*) password
+         firstName:(NSString*) firstName
+          lastName:(NSString*) lastName
+             email:(NSString*) email
+       dateOfBirth:(NSDate*) dateOfBirth
+            gender:(NSString*) gender
+               tag:(NSString*) tag
+          callback:(BuddyObjectCallback)callback
 {
-    [[BPClient defaultClient] createUser:user password:password callback:callback];
+    [currentClient createUser:userName
+                               password:password
+                              firstName:firstName
+                               lastName:lastName
+                                  email:email
+                            dateOfBirth:dateOfBirth
+                                 gender:gender
+                                    tag:tag
+                               callback:callback];
 }
 
-+ (void)login:(NSString *)username password:(NSString *)password callback:(BuddyObjectCallback)callback
+
++ (void)loginUser:(NSString *)username password:(NSString *)password callback:(BuddyObjectCallback)callback
 {
-    [[BPClient defaultClient] login:username password:password callback:callback  ];
-     
+    [currentClient loginUser:username password:password callback:callback];
 }
+
 
 + (void)socialLogin:(NSString *)provider providerId:(NSString *)providerId token:(NSString *)token success:(BuddyObjectCallback) callback;
 {
-    [[BPClient defaultClient] socialLogin:provider providerId:providerId token:token success:callback];
+    [currentClient socialLogin:provider providerId:providerId token:token success:callback];
 }
 
-+ (void)logout:(BuddyCompletionCallback)callback
++ (void)logoutUser:(BuddyCompletionCallback)callback
 {
-    [[BPClient defaultClient] logout:callback];
+    [currentClient logoutUser:callback];
 }
 
 + (void)sendPushNotification:(BPNotification *)notification callback:(BuddyCompletionCallback)callback;
 {
-    [[BPClient defaultClient] sendPushNotification:notification callback:callback];
+    [currentClient sendPushNotification:notification callback:callback];
 }
 
 + (void)recordMetric:(NSString *)key andValue:(NSDictionary *)value callback:(BuddyCompletionCallback)callback
 {
-    [[BPClient defaultClient] recordMetric:key andValue:value callback:callback];
+    [currentClient recordMetric:key andValue:value callback:callback];
 }
 
 + (void)recordMetric:(NSString *)key andValue:(NSDictionary *)value timeout:(NSInteger)seconds callback:(BuddyMetricCallback)callback
 {
-    [[BPClient defaultClient] recordMetric:key andValue:value timeout:seconds callback:callback];
+    [currentClient recordMetric:key andValue:value timeout:seconds callback:callback];
 }
 
 + (void)recordMetric:(NSString *)key andValue:(NSDictionary *)value timeout:(NSInteger)seconds timestamp:(NSDate*)timestamp callback:(BuddyMetricCallback)callback
 {
-    [[BPClient defaultClient] recordMetric:key andValue:value timeout:seconds timestamp:timestamp callback:callback];
+    [currentClient recordMetric:key andValue:value timeout:seconds timestamp:timestamp callback:callback];
 }
 
-+ (void)setMetadata:(BPMetadataItem *)metadata callback:(BuddyCompletionCallback)callback
+#pragma mark - REST
+
++ (void)GET:(NSString *)servicePath parameters:(NSDictionary *)parameters class:(Class)clazz callback:(RESTCallback)callback
 {
-    [[BPClient defaultClient] setMetadata:metadata callback:callback];
+    [currentClient GET:servicePath parameters:parameters class:clazz callback:callback];
 }
 
-+ (void)setMetadataValues:(BPMetadataKeyValues *)metadata callback:(BuddyCompletionCallback)callback
++ (void)POST:(NSString *)servicePath parameters:(NSDictionary *)parameters class:(Class)clazz callback:(RESTCallback)callback
 {
-    [[BPClient defaultClient] setMetadataValues:metadata callback:callback];
+    [currentClient POST:servicePath parameters:parameters class:clazz callback:callback];
 }
 
-+ (void)searchMetadata:(BPSearchMetadata *)search callback:(BPSearchCallback)callback
++ (void)PATCH:(NSString *)servicePath parameters:(NSDictionary *)parameters class:(Class)clazz callback:(RESTCallback)callback
 {
-    [[BPClient defaultClient] searchMetadata:search callback:callback];
+    [currentClient PATCH:servicePath parameters:parameters class:clazz callback:callback];
 }
 
-
-+ (void)incrementMetadata:(NSString *)key delta:(NSInteger)delta callback:(BuddyCompletionCallback)callback
++ (void)PUT:(NSString *)servicePath parameters:(NSDictionary *)parameters class:(Class)clazz callback:(RESTCallback)callback
 {
-    [[BPClient defaultClient] incrementMetadata:key delta:delta callback:callback];
+    [currentClient PUT:servicePath parameters:parameters class:clazz callback:callback];
 }
 
-+ (void)getMetadataWithKey:(NSString *)key visibility:(BPPermissions) visibility callback:(BPMetadataCallback)callback
++ (void)DELETE:(NSString *)servicePath parameters:(NSDictionary *)parameters class:(Class)clazz callback:(RESTCallback)callback
 {
-    [[BPClient defaultClient] getMetadataWithKey:key visibility:(BPPermissions)visibility callback:callback];
+    [currentClient DELETE:servicePath parameters:parameters class:clazz callback:callback];
 }
 
-+ (void)deleteMetadataWithKey:(NSString *)key visibility:(BPPermissions) visibility callback:(BuddyCompletionCallback)callback
-{
-    [[BPClient defaultClient] deleteMetadataWithKey:key visibility:(BPPermissions)visibility callback:callback];
-}
 
 @end

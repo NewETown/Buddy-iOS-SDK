@@ -55,7 +55,7 @@
 }
 
 
--(BuddyObjectCallback) getLoginCallback
+-(BuddyObjectCallback) getRegisterCallback
 {
     RegisterViewController * __weak weakSelf = self;
     
@@ -154,24 +154,13 @@
     self.HUD.dimBackground = YES;
     self.HUD.delegate=self;
     
-    BPUser *user = [BPUser new];
-    user.firstName = self.firstNameTextField.text;
-    user.lastName = self.lastNameTextField.text;
-    user.gender = BPUserGender_Unknown;
-    user.dateOfBirth= nil;
-    user.email = self.emailTextField.text;
-    user.userName = self.userNameTextField.text;
-    
-    __weak RegisterViewController *weakSelf = self;
-    
-    [Buddy createUser:user
+    [Buddy createUser:self.userNameTextField.text
              password:self.passwordTextField.text
-             callback:^(NSError *error) {
-                 [Buddy login:weakSelf.userNameTextField.text
-                     password:weakSelf.passwordTextField.text
-                     callback:[weakSelf getLoginCallback]];
-                 
-             }];
+            firstName:self.firstNameTextField.text
+             lastName:self.lastNameTextField.text
+                email:self.emailTextField.text
+          dateOfBirth:nil gender:@"male"
+                  tag:nil callback:[self getRegisterCallback]];
 }
 
 -(IBAction) goLogin:(id)sender

@@ -9,10 +9,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "MBProgressHUD.h"
 
-
-#import "BuddySDK/BPUser.h"
-#import "BuddySDK/Buddy.h"
-
+#import <BuddySDK/Buddy.h>
 
 #import "Constants.h"
 
@@ -25,8 +22,8 @@
 @interface RegisterViewController ()
 
 @property (nonatomic,strong) MBProgressHUD *HUD;
+
 -(void) resignTextFields;
--(BuddyObjectCallback) getLoginCallback;
 
 @end
 
@@ -59,34 +56,6 @@
     
 }
 
-
--(BuddyObjectCallback) getLoginCallback
-{
-    RegisterViewController * __weak weakSelf = self;
-    
-    return ^(id newBuddyObject, NSError *error)
-    {
-        [weakSelf.HUD hide:YES afterDelay:0.1];
-        
-        if(error!=nil)
-        {
-            UIAlertView *alert =
-            [[UIAlertView alloc] initWithTitle: @"Login Error"
-                                       message: [error localizedDescription]
-                                      delegate: self
-                             cancelButtonTitle: @"OK"
-                             otherButtonTitles: nil];
-            [alert show];
-            return;
-        }
-        
-        // Save username and password for next time
-        [CommonAppDelegate storeUsername:weakSelf.userNameTextField.text
-                             andPassword:weakSelf.passwordTextField.text];
-        [CommonAppDelegate setLoginPresented:FALSE];
-        [[[CommonAppDelegate navController] topViewController] dismissViewControllerAnimated:FALSE completion:nil];
-    };
-}
 
 -(IBAction) doRegister:(id)sender
 {
@@ -159,18 +128,16 @@
     self.HUD.dimBackground = YES;
     self.HUD.delegate=self;
     
-    BPUser *user = [BPUser new];
-    user.firstName =self.firstNameTextField.text;
-    user.lastName =self.lastNameTextField.text;
-    user.gender =BPUserGender_Unknown;
-    user.dateOfBirth=nil;
-    user.userName = self.userNameTextField.text;
-    
     __weak RegisterViewController *weakSelf = self;
     
-    [Buddy createUser:user
+    [Buddy createUser:self.userNameTextField.text
              password:self.passwordTextField.text
-             callback:^(NSError *error) {
+            firstName:self.firstNameTextField.text
+             lastName:self.lastNameTextField.text
+                email:self.emailTextField.text
+          dateOfBirth:nil gender:@"male"
+                  tag:nil
+             callback:^(id userObj,NSError *error) {
                  if(error!=nil)
                  {
                      // Only hide in the error case (as we still have to login if register fails
@@ -184,10 +151,13 @@
                      [alert show];
                      return;
                  }
-                 [Buddy login:weakSelf.userNameTextField.text
-                     password:weakSelf.passwordTextField.text
-                     callback:[weakSelf getLoginCallback]];
-
+                 
+                 // Save username and password for next time
+                 [CommonAppDelegate storeUsername:weakSelf.userNameTextField.text
+                                      andPassword:weakSelf.passwordTextField.text];
+                 [CommonAppDelegate setLoginPresented:FALSE];
+                 [[[CommonAppDelegate navController] topViewController] dismissViewControllerAnimated:FALSE completion:nil];
+                 
              }];
     
 }

@@ -8,7 +8,9 @@
 
 #import "BuddyAppDelegateDecorator.h"
 #import "BuddyDevice.h"
+
 #import "Buddy.h"
+#import "Buddy+Private.h"
 
 @implementation BuddyAppDelegateDecorator
 
@@ -45,13 +47,9 @@
     NSString *key=[userInfo objectForKey:@"_bId"];
     if(key!=nil)
     {
-        /* NOTE: Do we want to do a BPClient+Private.h here and call [BPClient defaultClient] notificationManager acknowledgeNotificationRecieved:key ?
-         */
         NSString *resource = [NSString stringWithFormat:@"/notifications/received/%@", key];
         
-        
-        
-        [Buddy.buddyRestProvider POST:resource parameters:nil callback:^(id json, NSError *error) {
+        [Buddy POST:resource parameters:nil class:[NSDictionary class] callback:^(id json, NSError *error) {
         
         }];
     }
@@ -65,7 +63,11 @@
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     NSString* rawDeviceTokenHex = [[deviceToken description] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
 
-    [BuddyDevice pushToken:[rawDeviceTokenHex stringByReplacingOccurrencesOfString:@" " withString:@""]];
+    BuddyDevice *device = [BuddyDevice alloc];
+    
+    [device initialize: [Buddy currentClientObject]];
+    
+    [device pushToken:[rawDeviceTokenHex stringByReplacingOccurrencesOfString:@" " withString:@""]];
     
     if(![self.wrapped respondsToSelector:@selector(application:didRegisterForRemoteNotificationsWithDeviceToken:)]){
         return;

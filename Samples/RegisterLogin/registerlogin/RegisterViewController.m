@@ -10,7 +10,6 @@
 
 
 #import <BuddySDK/Buddy.h>
-#import <BuddySDK/BPUser.h>
 
 #import "Constants.h"
 
@@ -74,8 +73,6 @@
 
 -(IBAction) doRegister:(id)sender
 {
-    
-    
     [self resignTextFields];
     
     if( [self.userNameTextField.text length]==0)
@@ -142,25 +139,18 @@
     self.HUD.labelText= @" Registering";
     self.HUD.dimBackground = YES;
     self.HUD.delegate=self;
-    
-    BPUser *user = [BPUser new];
-    user.firstName = self.firstNameTextField.text;
-    user.lastName = self.lastNameTextField.text;
-    user.gender = BPUserGender_Unknown;
-    user.dateOfBirth= nil;
-    user.email = self.emailTextField.text;
-    user.userName = self.userNameTextField.text;
 
     __weak RegisterViewController *weakSelf = self;
 
-    [Buddy createUser:user
-          password:self.passwordTextField.text
-          callback:^(NSError *error) {
-              [Buddy login:weakSelf.userNameTextField.text
-                      password:weakSelf.passwordTextField.text
-                      callback:[weakSelf getLoginCallback]];
-              
-          }];
+    [Buddy createUser:self.userNameTextField.text
+             password:self.passwordTextField.text
+            firstName:self.firstNameTextField.text
+             lastName:self.lastNameTextField.text
+                email:self.emailTextField.text
+          dateOfBirth:nil
+               gender:@"male"
+                  tag:nil callback:[weakSelf getLoginCallback]];
+    
 }
 
 -(IBAction) goLogin:(id)sender

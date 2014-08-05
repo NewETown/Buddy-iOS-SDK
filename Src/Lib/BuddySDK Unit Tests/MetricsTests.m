@@ -21,7 +21,7 @@ describe(@"Metrics", ^{
     context(@"When an app has a valid device token", ^{
         __block BOOL fin = NO;
         beforeAll(^{
-            [Buddy initClient:APP_ID appKey:APP_KEY];
+            [Buddy init:APP_ID appKey:APP_KEY];
         });
         
         afterAll(^{

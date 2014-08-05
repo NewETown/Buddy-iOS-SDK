@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <BuddySDK/BPClient.h>
 
 @class MainViewController;
 @class PictureList;
+
+#import <BuddySDK/BuddyClientProtocol.h>
 
 #define CommonAppDelegate (AppDelegate*)[[UIApplication sharedApplication] delegate]
 

@@ -8,17 +8,18 @@
 
 #import <Foundation/Foundation.h>
 
-@class BPUserList;
+@class BPModelUserList;
+
 
 @interface ChannelList : NSObject
 
 @property (nonatomic,strong) NSMutableDictionary *channels;
 
 -(void) clearChannels;
--(void) addChannel:(BPUserList*)channel;
+-(void) addChannel:(BPModelUserList*)channel;
 
 -(int) channelCount;
 
--(BPUserList*) getChannel:(NSString*)channelID;
+-(BPModelUserList*) getChannel:(NSString*)channelID;
 
 @end

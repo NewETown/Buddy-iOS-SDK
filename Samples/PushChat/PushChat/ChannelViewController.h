@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+@class BPModelUserList;
+
 @interface ChannelViewController : UIViewController
 
 @property (nonatomic,weak) IBOutlet UILabel *channelName;
@@ -15,7 +17,7 @@
 @property (nonatomic,weak) IBOutlet UIButton *leaveBut;
 @property (nonatomic,weak) IBOutlet UIButton *deleteBut;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil channel:(BPUserList*)channel;
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil channel:(BPModelUserList*)channel;
 
 -(IBAction)join:(id)sender;
 -(IBAction)leave:(id)sender;

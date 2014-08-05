@@ -7,6 +7,7 @@
 //
 
 #import "BPMetricCompletionHandler.h"
+#import "BPRestProvider.h"
 
 @interface BPMetricCompletionHandler()
 
@@ -39,7 +40,7 @@
         return;
     }
     NSString *resource = [NSString stringWithFormat:@"/metrics/events/%@", self.metricId];
-    [self.client DELETE:resource parameters:nil callback:^(id json, NSError *error) {
+    [self.client DELETE:resource parameters:nil class:[NSDictionary class] callback:^(id json, NSError *error) {
         NSInteger time = -1;
         id timeString = json[@"elaspedTimeInMs"];
         if (time) {

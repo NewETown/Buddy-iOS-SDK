@@ -40,14 +40,8 @@
 		EE26C7FE18EEEA13008311E1 /* SocialLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE26C7FC18EEEA13008311E1 /* SocialLoginViewController.xib */; };
 		EE2850DD18E4131D008A0520 /* ChangeNameBirthdayVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EE2850DB18E4131D008A0520 /* ChangeNameBirthdayVC.m */; };
 		EE2850DE18E4131D008A0520 /* ChangeNameBirthdayVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE2850DC18E4131D008A0520 /* ChangeNameBirthdayVC.xib */; };
-		EE397BBF18F5484E0080C381 /* IdentitiesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE397BBD18F5484E0080C381 /* IdentitiesViewController.m */; };
-		EE397BC018F5484E0080C381 /* IdentitiesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE397BBE18F5484E0080C381 /* IdentitiesViewController.xib */; };
-		EE397BC418F6BCAB0080C381 /* IdentityDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE397BC218F6BCAB0080C381 /* IdentityDetailViewController.m */; };
-		EE397BC518F6BCAB0080C381 /* IdentityDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE397BC318F6BCAB0080C381 /* IdentityDetailViewController.xib */; };
 		EE595DFE18DCD30200123A12 /* ChangeProfilePictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE595DFC18DCD30200123A12 /* ChangeProfilePictureViewController.m */; };
 		EE595DFF18DCD30200123A12 /* ChangeProfilePictureViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE595DFD18DCD30200123A12 /* ChangeProfilePictureViewController.xib */; };
-		EE595E0918DD512B00123A12 /* ResetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE595E0718DD512B00123A12 /* ResetPasswordViewController.m */; };
-		EE595E0A18DD512B00123A12 /* ResetPasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE595E0818DD512B00123A12 /* ResetPasswordViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,18 +103,9 @@
 		EE2850DA18E4131D008A0520 /* ChangeNameBirthdayVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangeNameBirthdayVC.h; sourceTree = "<group>"; };
 		EE2850DB18E4131D008A0520 /* ChangeNameBirthdayVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangeNameBirthdayVC.m; sourceTree = "<group>"; };
 		EE2850DC18E4131D008A0520 /* ChangeNameBirthdayVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChangeNameBirthdayVC.xib; sourceTree = "<group>"; };
-		EE397BBC18F5484E0080C381 /* IdentitiesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdentitiesViewController.h; sourceTree = "<group>"; };
-		EE397BBD18F5484E0080C381 /* IdentitiesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IdentitiesViewController.m; sourceTree = "<group>"; };
-		EE397BBE18F5484E0080C381 /* IdentitiesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IdentitiesViewController.xib; sourceTree = "<group>"; };
-		EE397BC118F6BCAB0080C381 /* IdentityDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdentityDetailViewController.h; sourceTree = "<group>"; };
-		EE397BC218F6BCAB0080C381 /* IdentityDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IdentityDetailViewController.m; sourceTree = "<group>"; };
-		EE397BC318F6BCAB0080C381 /* IdentityDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IdentityDetailViewController.xib; sourceTree = "<group>"; };
 		EE595DFB18DCD30200123A12 /* ChangeProfilePictureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangeProfilePictureViewController.h; sourceTree = "<group>"; };
 		EE595DFC18DCD30200123A12 /* ChangeProfilePictureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangeProfilePictureViewController.m; sourceTree = "<group>"; };
 		EE595DFD18DCD30200123A12 /* ChangeProfilePictureViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChangeProfilePictureViewController.xib; sourceTree = "<group>"; };
-		EE595E0618DD512B00123A12 /* ResetPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResetPasswordViewController.h; sourceTree = "<group>"; };
-		EE595E0718DD512B00123A12 /* ResetPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResetPasswordViewController.m; sourceTree = "<group>"; };
-		EE595E0818DD512B00123A12 /* ResetPasswordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ResetPasswordViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -284,21 +269,12 @@
 				EE595DFB18DCD30200123A12 /* ChangeProfilePictureViewController.h */,
 				EE595DFC18DCD30200123A12 /* ChangeProfilePictureViewController.m */,
 				EE595DFD18DCD30200123A12 /* ChangeProfilePictureViewController.xib */,
-				EE595E0618DD512B00123A12 /* ResetPasswordViewController.h */,
-				EE595E0718DD512B00123A12 /* ResetPasswordViewController.m */,
-				EE595E0818DD512B00123A12 /* ResetPasswordViewController.xib */,
 				EE2850DA18E4131D008A0520 /* ChangeNameBirthdayVC.h */,
 				EE2850DB18E4131D008A0520 /* ChangeNameBirthdayVC.m */,
 				EE2850DC18E4131D008A0520 /* ChangeNameBirthdayVC.xib */,
 				EE2510E018E5120E001509D9 /* SearchUsersViewController.h */,
 				EE2510E118E5120E001509D9 /* SearchUsersViewController.m */,
 				EE2510E218E5120E001509D9 /* SearchUsersViewController.xib */,
-				EE397BBC18F5484E0080C381 /* IdentitiesViewController.h */,
-				EE397BBD18F5484E0080C381 /* IdentitiesViewController.m */,
-				EE397BBE18F5484E0080C381 /* IdentitiesViewController.xib */,
-				EE397BC118F6BCAB0080C381 /* IdentityDetailViewController.h */,
-				EE397BC218F6BCAB0080C381 /* IdentityDetailViewController.m */,
-				EE397BC318F6BCAB0080C381 /* IdentityDetailViewController.xib */,
 				EE2510E518E51F8D001509D9 /* UserDetailViewController.h */,
 				EE2510E618E51F8D001509D9 /* UserDetailViewController.m */,
 				EE2510E718E51F8D001509D9 /* UserDetailViewController.xib */,
@@ -387,10 +363,7 @@
 				EE2850DE18E4131D008A0520 /* ChangeNameBirthdayVC.xib in Resources */,
 				0171961518879A8F00478055 /* InfoPlist.strings in Resources */,
 				0171965418879B0D00478055 /* RegisterViewController.xib in Resources */,
-				EE595E0A18DD512B00123A12 /* ResetPasswordViewController.xib in Resources */,
-				EE397BC518F6BCAB0080C381 /* IdentityDetailViewController.xib in Resources */,
 				0171961D18879A8F00478055 /* Images.xcassets in Resources */,
-				EE397BC018F5484E0080C381 /* IdentitiesViewController.xib in Resources */,
 				0171964A18879AF200478055 /* LoginViewController.xib in Resources */,
 				EE2510E918E51F8D001509D9 /* UserDetailViewController.xib in Resources */,
 				0171964F18879AFE00478055 /* MainViewController.xib in Resources */,
@@ -449,17 +422,14 @@
 			files = (
 				0171963C18879AAB00478055 /* AppDelegate.m in Sources */,
 				EE26C7FD18EEEA13008311E1 /* SocialLoginViewController.m in Sources */,
-				EE397BBF18F5484E0080C381 /* IdentitiesViewController.m in Sources */,
 				EE595DFE18DCD30200123A12 /* ChangeProfilePictureViewController.m in Sources */,
 				EE2850DD18E4131D008A0520 /* ChangeNameBirthdayVC.m in Sources */,
-				EE397BC418F6BCAB0080C381 /* IdentityDetailViewController.m in Sources */,
 				0171964E18879AFE00478055 /* MainViewController.m in Sources */,
 				EE2510E318E5120E001509D9 /* SearchUsersViewController.m in Sources */,
 				0171964518879AE300478055 /* TPKeyboardAvoidingScrollView.m in Sources */,
 				0171964218879AD200478055 /* MBProgressHUD.m in Sources */,
 				0171965318879B0D00478055 /* RegisterViewController.m in Sources */,
 				0171961718879A8F00478055 /* main.m in Sources */,
-				EE595E0918DD512B00123A12 /* ResetPasswordViewController.m in Sources */,
 				EE2510E818E51F8D001509D9 /* UserDetailViewController.m in Sources */,
 				0171964918879AF200478055 /* LoginViewController.m in Sources */,
 			);
