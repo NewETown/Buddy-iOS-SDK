@@ -9,11 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "MBProgressHUD.h"
 
-@class BPModelUser;
+@class BPUser;
 
 @interface UserDetailViewController : UIViewController<MBProgressHUDDelegate>
 
-@property (retain) BPModelUser *user;
+@property (retain) BPUser *user;
 
 @property (weak, nonatomic) IBOutlet UITextField *userNameField;
 @property (weak, nonatomic) IBOutlet UITextField *firstNameField;

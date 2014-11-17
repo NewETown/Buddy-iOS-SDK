@@ -12,8 +12,7 @@
 #import "BuddyCallbacks.h"
 
 @class BPCoordinate;
-@class BPNotification;
-@class BPModelUser;
+@class BPUser;
 
 
 /**
@@ -31,12 +30,10 @@ typedef NS_ENUM(NSInteger, BPReachabilityLevel) {
 @protocol BPClientDelegate <NSObject>
 
 @optional
-- (void)userChangedTo:(BPModelUser *)newUser from:(BPModelUser *)oldUser;
 
+- (void)userChangedTo:(BPUser *)newUser from:(BPUser *)oldUser;
 - (void)connectivityChanged:(BPReachabilityLevel)level;
-
 - (void)apiErrorOccurred:(NSError *)error;
-
 - (void)authorizationNeedsUserLogin;
 
 @end
@@ -50,10 +47,9 @@ typedef NS_ENUM(NSInteger, BPReachabilityLevel) {
 
 @property (nonatomic, readonly, assign) BPReachabilityLevel reachabilityLevel;
 
-@property (nonatomic, strong) BPModelUser *currentUser;
+@property (nonatomic, strong) BPUser *currentUser;
 
 @property (nonatomic,weak) id<BPClientDelegate> delegate;
-
 
 - (void)createUser:(NSString*) userName
           password:(NSString*) password
@@ -76,12 +72,14 @@ typedef NS_ENUM(NSInteger, BPReachabilityLevel) {
 - (void)PUT:(NSString *)servicePath parameters:(NSDictionary *)parameters class:(Class)clazz callback:(RESTCallback)callback;
 - (void)DELETE:(NSString *)servicePath parameters:(NSDictionary *)parameters class:(Class)clazz callback:(RESTCallback)callback;
 
-- (void)sendPushNotification:(BPNotification *)notification callback:(BuddyCompletionCallback)callback;
 
 - (void)recordMetric:(NSString *)key andValue:(NSDictionary *)value timeout:(NSInteger)seconds callback:(BuddyMetricCallback)callback;
 - (void)recordMetric:(NSString *)key andValue:(NSDictionary *)value callback:(BuddyCompletionCallback)callback;
 - (void)recordMetric:(NSString *)key andValue:(NSDictionary *)value timeout:(NSInteger)seconds timestamp:(NSDate*)timestamp callback:(BuddyMetricCallback)callback;
 
+- (void)registerPushTokenWithData:(NSData *)token callback:(BuddyObjectCallback) callback;
+- (void)registerPushToken:(NSString *)token callback:(BuddyObjectCallback)callback;
+- (void)notifyPushRecieved:(NSDictionary *)data;
 @end
 
 #endif

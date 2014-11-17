@@ -63,7 +63,7 @@
 
 -(void) loadAllUsers
 {
-    [Buddy GET:@"users" parameters:nil class:[BPModelSearch class] callback:[self getAllUsersCallback]];
+    [Buddy GET:@"users" parameters:nil class:[BPPageResults class] callback:[self getAllUsersCallback]];
 }
 
 -(RESTCallback) getAllUsersCallback
@@ -81,9 +81,9 @@
             return;
         }
         
-        BPModelSearch *searchResult = (BPModelSearch*)obj;
+        BPPageResults *searchResult = (BPPageResults*)obj;
         
-        NSArray *searchUsers = [searchResult convertPageResultsToType:[BPModelUser class]];
+        NSArray *searchUsers = [searchResult convertPageResultsToType:[BPUser class]];
         NSLog(@"getAllUsersCallback - success Called");
         [self putAllUsers:[searchUsers mutableCopy]];
         [self.tableView reloadData];
@@ -119,7 +119,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
-    BPModelUser *aUser = [self.filteredUserList objectAtIndex:indexPath.row];
+    BPUser *aUser = [self.filteredUserList objectAtIndex:indexPath.row];
     
     if (aUser.firstName || aUser.lastName) {
         cell.textLabel.text = [NSString stringWithFormat:@"%@ (%@ %@)",
@@ -137,7 +137,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    BPModelUser *aUser = [self.filteredUserList objectAtIndex:indexPath.row];
+    BPUser *aUser = [self.filteredUserList objectAtIndex:indexPath.row];
     UserDetailViewController *subVC = [[UserDetailViewController alloc]
                                         initWithNibName:@"UserDetailViewController" bundle:nil];
     subVC.user = aUser;
@@ -158,7 +158,7 @@
     }
     else
     {
-        for(BPModelUser *user in self.allUsersList)
+        for(BPUser *user in self.allUsersList)
         {
             if ([user.firstName rangeOfString:keyword options:NSCaseInsensitiveSearch].location != NSNotFound) {
                 [self.filteredUserList addObject:user];

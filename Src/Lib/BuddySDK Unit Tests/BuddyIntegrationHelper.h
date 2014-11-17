@@ -8,13 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-#import "BuddyClientProtocol.h"
-#import "BuddyCallbacks.h"
-
-@class BPUserModel;
-
-
-
 @interface BuddyIntegrationHelper : NSObject
 
 + (void) bootstrapInit;

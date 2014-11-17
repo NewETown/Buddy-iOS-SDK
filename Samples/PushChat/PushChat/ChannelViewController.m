@@ -15,7 +15,7 @@
 
 @interface ChannelViewController ()
 
-@property (nonatomic,strong) BPModelUserList *channel;
+@property (nonatomic,strong) BPUserList *channel;
 @end
 
 @implementation ChannelViewController
@@ -29,7 +29,7 @@
     return self;
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil channel:(BPModelUserList*)channel
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil channel:(BPUserList*)channel
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
@@ -199,7 +199,7 @@
         {
             
             UIAlertView *alert =
-            [[UIAlertView alloc] initWithTitle: @"Already On"
+            [[UIAlertView alloc] initWithTitle: @"Not On List"
                                        message: @"You were not on that list"
                                       delegate: weakSelf
                              cancelButtonTitle: @"OK"
@@ -210,7 +210,7 @@
         }
         
         UIAlertView *alert =
-        [[UIAlertView alloc] initWithTitle: @"Joined"
+        [[UIAlertView alloc] initWithTitle: @"Left List"
                                    message: @"You left the list"
                                   delegate: weakSelf
                          cancelButtonTitle: @"OK"

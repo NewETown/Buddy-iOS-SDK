@@ -20,6 +20,7 @@
 
 @implementation AppDelegate
 
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
@@ -43,8 +44,13 @@
     
     [self.window makeKeyAndVisible];
     
-    [Buddy init: APP_ID appKey: APP_KEY];
-    
+    // Go to http://buddyplatform.com to get an app ID and app key.
+    [Buddy init:\@"Your App ID" appKey:\@"Your App Key"];
+
+    [[Buddy currentClient] notifyPushRecieved:launchOptions];
+    [application registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge
+         | UIRemoteNotificationTypeNewsstandContentAvailability | UIRemoteNotificationTypeNone
+     | UIRemoteNotificationTypeSound ];
     
     _channels =[[ChannelList alloc] init];
     _receivedMessages = [ReceivedMessageTable new];
@@ -56,12 +62,18 @@
 }
 -(void) application:(UIApplication*) application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     NSLog(@"%@", deviceToken);
+    [[Buddy currentClient] registerPushTokenWithData:deviceToken callback:nil];
 }
 
 -(void) application:(UIApplication*) application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
+    [Buddy recordNotificationReceived:application withDictionary:userInfo];
     ReceivedMessage *message = [[CommonAppDelegate receivedMessages] addMessageFromDict:userInfo];
     [[iToast makeText:[NSString stringWithFormat:@"%@:%@",message.channel, message.message]] show];    
+}
+
+-(void) application:(UIApplication*) application didReceiveLocalNotification:(UILocalNotification *)notification{
+    [Buddy recordNotificationReceived:application withNotification:notification];
 }
 
 /* UserName */

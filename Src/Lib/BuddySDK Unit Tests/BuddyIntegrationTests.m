@@ -11,7 +11,7 @@
 #import "BPAppSettings+Private.h"
 #import "BuddyIntegrationHelper.h"
 
-#import "BPModelUser.h"
+#import "BPUser.h"
 
 #ifdef kKW_DEFAULT_PROBE_TIMEOUT
 #undef kKW_DEFAULT_PROBE_TIMEOUT
@@ -58,7 +58,7 @@ describe(@"Buddy", ^{
                   dateOfBirth:randomDate gender:@"male" tag:nil callback:^(id obj,NSError *error) {
                       fin = YES;
                       
-                      BPModelUser *user = (BPModelUser*)obj;
+                      BPUser *user = (BPUser*)obj;
                       
                       [[user should] beNonNil];
                       
@@ -74,10 +74,10 @@ describe(@"Buddy", ^{
         });
         
         it(@"Should allow you to login.", ^{
-            __block BPModelUser *newUser;
+            __block BPUser *newUser;
             
             [Buddy loginUser:userName password:TEST_PASSWORD callback:^(id obj, NSError *error) {
-                newUser = (BPModelUser*)obj;
+                newUser = (BPUser*)obj;
                 [[newUser.userName should] equal:userName];
                 fin = YES;
             }];

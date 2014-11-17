@@ -13,8 +13,8 @@
 #define PASSWORD_PREF_KEY @"BD_PASSWORD"
 
 
-#define APP_ID @"\Your App ID"
-#define APP_KEY @"\Your App Key"
+#define APP_ID \@"Your App ID"
+#define APP_KEY \@"Your App Key"
 
 #define DEFAULT_BUT_CORNER_RAD 10
 #define DEFAULT_BUT_BORDER_WIDTH 1

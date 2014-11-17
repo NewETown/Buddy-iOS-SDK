@@ -27,6 +27,8 @@ static NSString * const KWContextNodeException = @"KWContextNodeException";
 
 @implementation KWContextNode
 
+@synthesize description;
+
 #pragma mark - Initializing
 
 - (id)initWithCallSite:(KWCallSite *)aCallSite parentContext:(KWContextNode *)node description:(NSString *)aDescription {
@@ -34,7 +36,7 @@ static NSString * const KWContextNodeException = @"KWContextNodeException";
     if (self) {
         _parentContext = node;
         _callSite = aCallSite;
-        _description = [aDescription copy];
+        description = [aDescription copy];
         _nodes = [NSMutableArray array];
         _registerMatchersNodes = [NSMutableArray array];
         _letNodes = [NSMutableArray array];

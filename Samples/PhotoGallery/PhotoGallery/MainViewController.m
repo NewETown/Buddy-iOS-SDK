@@ -91,9 +91,9 @@
         self.apiError=FALSE;
         NSLog(@"getLoadUserPhotosCallback - success Called");
         
-        BPModelSearch *searchResults = (BPModelSearch*)obj;
+        BPPageResults *searchResults = (BPPageResults*)obj;
         
-        NSArray *searchObjects = [searchResults convertPageResultsToType:[BPModelPicture class]];
+        NSArray *searchObjects = [searchResults convertPageResultsToType:[BPPicture class]];
         
         [[CommonAppDelegate userPictures] putPictures: [searchObjects mutableCopy]];
         [self.galleryCollection reloadData];
@@ -126,7 +126,7 @@
 
 -(void) loadUserPhotos
 {
-    [Buddy GET:@"pictures" parameters:nil class:[BPModelSearch class] callback:[self getLoadUserPhotosCallback]];
+    [Buddy GET:@"pictures" parameters:nil class:[BPPageResults class] callback:[self getLoadUserPhotosCallback]];
 }
 
 -(IBAction)doAddPhoto:(id)sender
@@ -166,7 +166,7 @@
     UICollectionViewCell *cell =[cv dequeueReusableCellWithReuseIdentifier:@"PhotoThumb" forIndexPath:indexPath];
     cell.backgroundColor = [UIColor clearColor];
     
-    BPModelPicture *picture = [[CommonAppDelegate userPictures] pictureAtIndex:indexPath.row];
+    BPPicture *picture = [[CommonAppDelegate userPictures] pictureAtIndex:indexPath.row];
     
     if(picture==nil)
     {
@@ -189,11 +189,11 @@
     }
     else
     {
-        [Buddy GET:[NSString stringWithFormat:@"pictures/%@/file",picture.id] parameters:nil class:[BuddyFile class] callback:^(id obj, NSError *error) {
+        [Buddy GET:[NSString stringWithFormat:@"pictures/%@/file",picture.id] parameters:nil class:[BPFile class] callback:^(id obj, NSError *error) {
             
             if(error==nil)
             {
-                BuddyFile *file = (BuddyFile*)obj;
+                BPFile *file = (BPFile*)obj;
                 
                 UIImage* image = [UIImage imageWithData:file.fileData];
                 [imageView setImage:image];
@@ -209,7 +209,7 @@
 #pragma mark - UICollectionViewDelegate
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    BPModelPicture *picture = [[CommonAppDelegate userPictures] pictureAtIndex:indexPath.row];
+    BPPicture *picture = [[CommonAppDelegate userPictures] pictureAtIndex:indexPath.row];
     if(picture==nil)
     {
         return;

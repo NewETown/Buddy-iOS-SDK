@@ -27,7 +27,6 @@
             }
             return nil;
         };
-        
     }
     return c;
 }

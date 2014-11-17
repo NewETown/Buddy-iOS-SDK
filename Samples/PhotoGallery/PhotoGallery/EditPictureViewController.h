@@ -10,7 +10,7 @@
 
 #import "MBProgressHUD.h"
 
-@class BPModelPicture;
+@class BPPicture;
 
 @interface EditPictureViewController : UIViewController <MBProgressHUDDelegate>
 
@@ -20,7 +20,7 @@
 @property (nonatomic,weak) IBOutlet UIButton *deleteButton;
 @property (nonatomic,weak) IBOutlet UIButton *saveButton;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil andPicture:(BPModelPicture*) picture;
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil andPicture:(BPPicture*) picture;
 
 -(IBAction)doDelete:(id)sender;
 -(IBAction)doSave:(id)sender;

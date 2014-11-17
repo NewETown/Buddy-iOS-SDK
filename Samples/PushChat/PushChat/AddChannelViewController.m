@@ -42,7 +42,7 @@
                            @"readPermissions" : @"App",
                            @"writePermissions" : @"App"};
     
-    [Buddy POST:@"users/lists" parameters:params class:[BPModelUserList class] callback:^(id obj, NSError *error) {
+    [Buddy POST:@"users/lists" parameters:params class:[BPUserList class] callback:^(id obj, NSError *error) {
         
         if(error!=nil)
         {
@@ -57,7 +57,7 @@
             return;
         }
         
-        BPModelUserList *list = (BPModelUserList*)obj;
+        BPUserList *list = (BPUserList*)obj;
         
         [[CommonAppDelegate channels] addChannel:list];
         

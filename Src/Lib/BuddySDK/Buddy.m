@@ -33,12 +33,12 @@ static BPClient* currentClient;
     return currentClient;
 }
 
-+ (BPModelUser *)user
++ (BPUser *)user
 {
     return [[self currentClient] currentUser];
 }
 
-+ (void) setUser:(BPModelUser *)user
++ (void) setUser:(BPUser *)user
 {
     [[self currentClientObject] setCurrentUser:user];
 }
@@ -138,10 +138,29 @@ static BPClient* currentClient;
     [currentClient logoutUser:callback];
 }
 
-+ (void)sendPushNotification:(BPNotification *)notification callback:(BuddyCompletionCallback)callback;
-{
-    [currentClient sendPushNotification:notification callback:callback];
++ (void)recordNotificationReceived:(UIApplication *)application withDictionary:(NSDictionary *)userInfo{
+    if(UIApplicationStateActive != application.applicationState
+       && [userInfo valueForKey:@"_bId"] != nil){
+        NSString* path = [NSString stringWithFormat:@"/notifications/received/%@",
+                          [userInfo valueForKey:@"_bId"]];
+        [currentClient POST:path parameters:nil class:[NSDictionary class] callback:^(id object, NSError* error){
+            NSLog(@"notification activate recorded");
+        }];
+    }
 }
+
++(void) recordNotificationReceived:(UIApplication *)application withNotification:(UILocalNotification *)notification {
+    if(UIApplicationStateActive != application.applicationState
+       && [notification.userInfo valueForKey:@"_bId"]){
+        NSString* path = [NSString stringWithFormat:@"/notifications/received/%@",
+                          [notification.userInfo valueForKey:@"_bId"]];
+        [currentClient POST:path parameters:nil class:[NSDictionary class]  callback:^(id object, NSError* error){
+            NSLog(@"notification activate recorded");
+        }];
+    }
+    
+}
+
 
 + (void)recordMetric:(NSString *)key andValue:(NSDictionary *)value callback:(BuddyCompletionCallback)callback
 {

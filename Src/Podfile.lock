@@ -1,5 +1,5 @@
 PODS:
-  - BuddySDK (2.0.6)
+  - BuddySDK (2.0.8)
   - Kiwi/ARC (2.2.4)
   - Kiwi/NonARC (2.2.4)
   - Kiwi/XCTest (2.2.4):
@@ -15,7 +15,7 @@ EXTERNAL SOURCES:
     :path: ../BuddySDK.podspec
 
 SPEC CHECKSUMS:
-  BuddySDK: e76b984dbac556d0252af6fdb27353cb17b98c66
+  BuddySDK: 5bfa597abc31d909da94252cf3a2d90c3f536b68
   Kiwi: c73667f2b84cbf36f1a3830267c5a4ae8dcbd8ba
 
 COCOAPODS: 0.33.1

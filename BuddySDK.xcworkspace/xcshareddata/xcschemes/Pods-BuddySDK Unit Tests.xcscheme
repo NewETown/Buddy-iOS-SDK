@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0510"
+   LastUpgradeVersion = "0600"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "804AA24CA5D6403AA0E0F9DB"
+               BlueprintIdentifier = "1C5CB9999E964A0CA0C11317"
                BuildableName = "libPods-BuddySDK Unit Tests.a"
                BlueprintName = "Pods-BuddySDK Unit Tests"
                ReferencedContainer = "container:Src/Pods/Pods.xcodeproj">
@@ -39,6 +39,15 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "1C5CB9999E964A0CA0C11317"
+            BuildableName = "libPods-BuddySDK Unit Tests.a"
+            BlueprintName = "Pods-BuddySDK Unit Tests"
+            ReferencedContainer = "container:Src/Pods/Pods.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>

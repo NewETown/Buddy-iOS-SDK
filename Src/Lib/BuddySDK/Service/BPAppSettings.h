@@ -33,6 +33,8 @@
 
 @property (nonatomic, readonly, strong) NSString *token;
 
+@property (nonatomic, strong) NSString* deviceTag;
+@property (nonatomic, strong) NSString* deviceUniqueId;
 
 - (void)clear;
 - (void)clearUser;

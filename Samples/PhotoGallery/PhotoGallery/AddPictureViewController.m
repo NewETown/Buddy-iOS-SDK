@@ -89,13 +89,13 @@
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     [parameters setObject:self.captionField.text forKey:@"caption"];
     
-    BuddyFile *file = [[BuddyFile alloc] init];
+    BPFile *file = [[BPFile alloc] init];
     file.contentType = @"image/png";
     file.fileData = UIImagePNGRepresentation(self.selectedImage);
     [parameters setObject:file forKey:@"data"];
     
   
-    [Buddy POST:@"pictures" parameters:parameters class:[BPModelPicture class] callback:^(id obj, NSError *error) {
+    [Buddy POST:@"pictures" parameters:parameters class:[BPPicture class] callback:^(id obj, NSError *error) {
         [weakSelf.HUD hide:TRUE afterDelay:0.1];
         weakSelf.HUD=nil;
         
@@ -113,7 +113,7 @@
         }
         
         NSLog(@"LoadUserPhotosCallback - success Called");
-        BPModelPicture *pic = (BPModelPicture*)obj;
+        BPPicture *pic = (BPPicture*)obj;
         
         [[CommonAppDelegate userPictures] addPicture:pic];
         [self goBack];

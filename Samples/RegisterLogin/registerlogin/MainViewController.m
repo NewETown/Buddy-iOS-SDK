@@ -81,7 +81,7 @@
         
         if(error!=nil)
         {
-            BPModelUser *user = (BPModelUser*)obj;
+            BPUser *user = (BPUser*)obj;
             
             
             Buddy.user = user;
@@ -106,7 +106,7 @@
     self.HUD.dimBackground = YES;
     self.HUD.delegate=self;
     
-    [Buddy GET:@"users/me" parameters:nil class:[BPModelUser class] callback:[self getRefreshCallback]];
+    [Buddy GET:@"users/me" parameters:nil class:[BPUser class] callback:[self getRefreshCallback]];
     
 }
 

@@ -1,1 +1,1 @@
-../../../Lib/BuddySDK/BPObjects/BPUser.h
+../../../Lib/BuddySDK/Models/BPUser.h

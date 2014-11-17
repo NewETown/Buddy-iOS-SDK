@@ -29,7 +29,7 @@
 {
     [self.channels removeAllObjects];
 }
--(void) addChannel:(BPModelUserList*)channel
+-(void) addChannel:(BPUserList*)channel
 {
     [self.channels setObject:channel forKey:channel.id];
     
@@ -40,7 +40,7 @@
     return [self.channels count];
 }
 
--(BPModelUserList*) getChannel:(NSString*)channelID
+-(BPUserList*) getChannel:(NSString*)channelID
 {
     return [self.channels objectForKey:channelID];
 }

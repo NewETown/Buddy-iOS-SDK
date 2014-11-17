@@ -25,6 +25,7 @@
 		293ABFB9194539B2003B8922 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 293ABFB8194539B2003B8922 /* SystemConfiguration.framework */; };
 		293ABFBB194539BF003B8922 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 293ABFBA194539BF003B8922 /* CoreLocation.framework */; };
 		293ABFBD194539CD003B8922 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 293ABFBC194539CD003B8922 /* CFNetwork.framework */; };
+		CFFF0EB305994F44844CC27B /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 85280783D54D45A9BC813A9D /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +61,8 @@
 		293ABFB8194539B2003B8922 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		293ABFBA194539BF003B8922 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		293ABFBC194539CD003B8922 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		85280783D54D45A9BC813A9D /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		D72801C2D082413692060F79 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +77,7 @@
 				293ABF7F19453942003B8922 /* CoreGraphics.framework in Frameworks */,
 				293ABF8119453942003B8922 /* UIKit.framework in Frameworks */,
 				293ABF7D19453942003B8922 /* Foundation.framework in Frameworks */,
+				CFFF0EB305994F44844CC27B /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -96,6 +100,7 @@
 				293ABF8219453942003B8922 /* BuddyStarter */,
 				293ABF7B19453942003B8922 /* Frameworks */,
 				293ABF7A19453942003B8922 /* Products */,
+				D72801C2D082413692060F79 /* Pods.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -119,6 +124,7 @@
 				293ABF7E19453942003B8922 /* CoreGraphics.framework */,
 				293ABF8019453942003B8922 /* UIKit.framework */,
 				293ABF9E19453942003B8922 /* XCTest.framework */,
+				85280783D54D45A9BC813A9D /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -158,9 +164,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 293ABFAE19453942003B8922 /* Build configuration list for PBXNativeTarget "BuddyStarter" */;
 			buildPhases = (
+				070BC6BA46F6479EABDC0ABE /* Check Pods Manifest.lock */,
 				293ABF7519453942003B8922 /* Sources */,
 				293ABF7619453942003B8922 /* Frameworks */,
 				293ABF7719453942003B8922 /* Resources */,
+				08127CA070F748A29B7DAF21 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -243,6 +251,39 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		070BC6BA46F6479EABDC0ABE /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		08127CA070F748A29B7DAF21 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		293ABF7519453942003B8922 /* Sources */ = {
@@ -359,12 +400,12 @@
 		};
 		293ABFAF19453942003B8922 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D72801C2D082413692060F79 /* Pods.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/BuddySDK-gdgmuzlpknqmpzgfgruxhhnkjbfv/Build/Products/Debug-iphoneos",
 					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -377,12 +418,12 @@
 		};
 		293ABFB019453942003B8922 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D72801C2D082413692060F79 /* Pods.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/BuddySDK-gdgmuzlpknqmpzgfgruxhhnkjbfv/Build/Products/Debug-iphoneos",
 					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;

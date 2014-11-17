@@ -9,11 +9,14 @@
 
 @interface BPStarterViewController ()
 
+-(void) greetUser:(BPUser*)user;
 
 @end
 
 @implementation BPStarterViewController
+
 @synthesize message;
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -21,17 +24,19 @@
     
 }
 
+-(void) greetUser:(BPUser*)user {
+    if (user && user.userName) {
+        self.message.text = [[NSString alloc] initWithFormat:@"Hello, %@.", user.userName];
+    }
+    else {
+        self.message.text = @"";
+    }
+}
 -(void)refreshUser {
     
-    [Buddy GET:@"users/me" parameters:nil class:[BPModelUser class] callback:^(id u, NSError *error) {
-        BPModelUser *user = u;
-        if (user && user.userName) {
-            self.message.text = [[NSString alloc] initWithFormat:@"Hello, %@.", user.userName];
-        }
-        else {
-            self.message.text = @"";
-        }
-       
+    [Buddy GET:@"users/me" parameters:nil class:[BPUser class] callback:^(id u, NSError *error) {
+        BPUser *user = u;
+        [self greetUser:user];
     }];
 }
 
@@ -39,8 +44,8 @@
     
     self.message.text = @"Loading...";
     
-    BPModelUser *user = [Buddy user];
-    
+    BPUser *user = [Buddy user];
+    [self greetUser:user];
     // load the current user's information
     //
     [self refreshUser];

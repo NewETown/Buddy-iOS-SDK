@@ -83,7 +83,7 @@
 - (void) tableView: (UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ViewChannelListItem *item = [self.table.table objectAtIndex:indexPath.row];
-    BPModelUserList *list = [[CommonAppDelegate channels] getChannel:item.listID];
+    BPUserList *list = [[CommonAppDelegate channels] getChannel:item.listID];
     
     ChannelViewController *vc = [[ChannelViewController alloc] initWithNibName:@"ChannelViewController" bundle:nil channel:list];
     [ [CommonAppDelegate navController] pushViewController:vc animated:YES];
@@ -114,7 +114,7 @@
 
     checked.checked =item.isChecked;
     
-    BPModelUserList *list = [[CommonAppDelegate channels] getChannel:item.listID];
+    BPUserList *list = [[CommonAppDelegate channels] getChannel:item.listID];
     
     if(list==nil)
     {
@@ -228,7 +228,7 @@
 {
     NSDictionary *parameters = @{@"readPermissions": @"App"};
 
-    [Buddy GET:@"users/lists" parameters:parameters class:[BPModelSearch class] callback:^(id obj,NSError *error)
+    [Buddy GET:@"users/lists" parameters:parameters class:[BPPageResults class] callback:^(id obj,NSError *error)
     {
         if(error!=nil)
         {
@@ -245,11 +245,11 @@
         
         [self.table clear];
         
-        BPModelSearch *searchResult = (BPModelSearch*)obj;
+        BPPageResults *searchResult = (BPPageResults*)obj;
         
-        NSArray *searchItems = [searchResult convertPageResultsToType:[BPModelUserList class]];
+        NSArray *searchItems = [searchResult convertPageResultsToType:[BPUserList class]];
         
-        for(BPModelUserList* userList in searchItems)
+        for(BPUserList* userList in searchItems)
         {
             [[CommonAppDelegate channels]  addChannel:userList];
             ViewChannelListItem *newItem = [[ViewChannelListItem alloc]init];

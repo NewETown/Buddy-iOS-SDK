@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 #import "BuddyDevice.h"
 #import "BPCoordinate.h"
@@ -15,27 +16,24 @@
 #import "BuddyClientProtocol.h"
 
 #import "BPMetricCompletionHandler.h"
-#import "BPNotification.h"
 #import "BPSize.h"
 
 // Models
-#import "BPModelUser.h"
-#import "BPModelCheckin.h"
-#import "BPModelSearch.h"
-#import "BPModelPicture.h"
-#import "BPModelUserList.h"
+#import "BPUser.h"
+#import "BPCheckin.h"
+#import "BPPageResults.h"
+#import "BPPicture.h"
+#import "BPUserList.h"
 
-#import "BuddyFile.h"
+#import "BPFile.h"
 
 @interface Buddy : NSObject
 
- /* The currently logged in user. Will be nil if no login session has occurred.
+/* The currently logged in user. Will be nil if no login has occurred.
+ *
  */
-
-//@property (nonatomic,strong) BPModelUser *user;
-
-+ (BPModelUser*)user;
-+ (void) setUser:(BPModelUser*)user;
++ (BPUser*)user;
++ (void) setUser:(BPUser*)user;
 
 + (id<BuddyClientProtocol>) currentClient;
 
@@ -98,17 +96,11 @@
  */
 + (void)logoutUser:(BuddyCompletionCallback)callback;
 
-/* 
- * Send a push Notification to one or more users, or user lists.
- *
- * @param notification  a BPNotification object with the notification information populated.
- * 
- * @callback            a callback that is called once the server has accepted the request.
- *                      NOTE: The server sends push notifications asynchronously so the callback
- *                            may be called before all notifications have been sent out.
- *
- */
-+ (void)sendPushNotification:(BPNotification *)notification callback:(BuddyCompletionCallback)callback;
+
++ (void)recordNotificationReceived:(UIApplication *)application withDictionary:(NSDictionary *)userInfo;
++ (void)recordNotificationReceived:(UIApplication *)application withNotification:(UILocalNotification *)notification;
+
+
 
 /** 
  * Records a metric.

@@ -1,0 +1,1 @@
+../../../Lib/BuddySDK/Models/BPSearch.h

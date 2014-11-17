@@ -10,6 +10,8 @@
 		0111B6851892C49600745813 /* PhotoThumbView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0111B6841892C49500745813 /* PhotoThumbView.xib */; };
 		0111B68B1892DEF200745813 /* EditPictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0111B6891892DEF200745813 /* EditPictureViewController.m */; };
 		0111B68C1892DEF200745813 /* EditPictureViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0111B68A1892DEF200745813 /* EditPictureViewController.xib */; };
+		012311B2199D49F8003081CA /* PictureList.m in Sources */ = {isa = PBXBuildFile; fileRef = 012311B1199D49F8003081CA /* PictureList.m */; };
+		012311B5199D4A00003081CA /* ImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 012311B4199D4A00003081CA /* ImageCache.m */; };
 		013D69D41897331E0052B091 /* TPKeyboardAvoidingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 013D69D31897331E0052B091 /* TPKeyboardAvoidingScrollView.m */; };
 		016822DC18A937EF00977BCB /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 016822DB18A937EF00977BCB /* MobileCoreServices.framework */; };
 		01AEB8871890914C003B051A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01AEB8861890914C003B051A /* Foundation.framework */; };
@@ -36,8 +38,6 @@
 		01AEB8D11890957B003B051A /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01AEB8D01890957B003B051A /* CoreLocation.framework */; };
 		01AEB8D918909D24003B051A /* AddPictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01AEB8D718909D24003B051A /* AddPictureViewController.m */; };
 		01AEB8DA18909D24003B051A /* AddPictureViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01AEB8D818909D24003B051A /* AddPictureViewController.xib */; };
-		01B718E018917BAD0079495F /* ImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 01B718DF18917BAD0079495F /* ImageCache.m */; };
-		01B718EB189197E80079495F /* PictureList.m in Sources */ = {isa = PBXBuildFile; fileRef = 01B718EA189197E80079495F /* PictureList.m */; };
 		BA030D2643994ADBAAA6B334 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B76C766856424C499747BCFA /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -56,6 +56,10 @@
 		0111B6881892DEF200745813 /* EditPictureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditPictureViewController.h; sourceTree = "<group>"; };
 		0111B6891892DEF200745813 /* EditPictureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditPictureViewController.m; sourceTree = "<group>"; };
 		0111B68A1892DEF200745813 /* EditPictureViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditPictureViewController.xib; sourceTree = "<group>"; };
+		012311B0199D49F8003081CA /* PictureList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PictureList.h; sourceTree = "<group>"; };
+		012311B1199D49F8003081CA /* PictureList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PictureList.m; sourceTree = "<group>"; };
+		012311B3199D4A00003081CA /* ImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageCache.h; sourceTree = "<group>"; };
+		012311B4199D4A00003081CA /* ImageCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageCache.m; sourceTree = "<group>"; };
 		013D69D21897331E0052B091 /* TPKeyboardAvoidingScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPKeyboardAvoidingScrollView.h; sourceTree = "<group>"; };
 		013D69D31897331E0052B091 /* TPKeyboardAvoidingScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPKeyboardAvoidingScrollView.m; sourceTree = "<group>"; };
 		016822DB18A937EF00977BCB /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -93,10 +97,6 @@
 		01AEB8D618909D24003B051A /* AddPictureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddPictureViewController.h; sourceTree = "<group>"; };
 		01AEB8D718909D24003B051A /* AddPictureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddPictureViewController.m; sourceTree = "<group>"; };
 		01AEB8D818909D24003B051A /* AddPictureViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddPictureViewController.xib; sourceTree = "<group>"; };
-		01B718DE18917BAD0079495F /* ImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImageCache.h; path = ../ImageCache.h; sourceTree = "<group>"; };
-		01B718DF18917BAD0079495F /* ImageCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ImageCache.m; path = ../ImageCache.m; sourceTree = "<group>"; };
-		01B718E9189197E80079495F /* PictureList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PictureList.h; path = ../PictureList.h; sourceTree = "<group>"; };
-		01B718EA189197E80079495F /* PictureList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PictureList.m; path = ../PictureList.m; sourceTree = "<group>"; };
 		9E1CDE07B78147AD89C54F18 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		B76C766856424C499747BCFA /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -243,10 +243,10 @@
 		01B718EF1891BECB0079495F /* Containers */ = {
 			isa = PBXGroup;
 			children = (
-				01B718E9189197E80079495F /* PictureList.h */,
-				01B718EA189197E80079495F /* PictureList.m */,
-				01B718DE18917BAD0079495F /* ImageCache.h */,
-				01B718DF18917BAD0079495F /* ImageCache.m */,
+				012311B3199D4A00003081CA /* ImageCache.h */,
+				012311B4199D4A00003081CA /* ImageCache.m */,
+				012311B0199D49F8003081CA /* PictureList.h */,
+				012311B1199D49F8003081CA /* PictureList.m */,
 			);
 			name = Containers;
 			sourceTree = "<group>";
@@ -333,7 +333,7 @@
 		01AEB87B1890914B003B051A /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Buddy Platform";
 				TargetAttributes = {
 					01AEB89D1890914C003B051A = {
@@ -423,16 +423,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				012311B2199D49F8003081CA /* PictureList.m in Sources */,
 				01AEB8BE18909263003B051A /* LoginViewController.m in Sources */,
 				01AEB8C9189092E2003B051A /* MBProgressHUD.m in Sources */,
 				01AEB8971890914C003B051A /* AppDelegate.m in Sources */,
 				01AEB8B918909251003B051A /* RegisterViewController.m in Sources */,
+				012311B5199D4A00003081CA /* ImageCache.m in Sources */,
 				0111B68B1892DEF200745813 /* EditPictureViewController.m in Sources */,
 				013D69D41897331E0052B091 /* TPKeyboardAvoidingScrollView.m in Sources */,
 				01AEB8D918909D24003B051A /* AddPictureViewController.m in Sources */,
-				01B718EB189197E80079495F /* PictureList.m in Sources */,
 				01AEB8C318909276003B051A /* MainViewController.m in Sources */,
-				01B718E018917BAD0079495F /* ImageCache.m in Sources */,
 				01AEB8931890914C003B051A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -479,7 +479,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -518,7 +517,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -596,7 +594,6 @@
 		01AEB8B31890914C003B051A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/PhotoGallery.app/PhotoGallery";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -619,7 +616,6 @@
 		01AEB8B41890914C003B051A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/PhotoGallery.app/PhotoGallery";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",

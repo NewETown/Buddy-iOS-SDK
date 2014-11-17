@@ -65,12 +65,12 @@
     }
     
     [Buddy GET:[NSString stringWithFormat:@"pictures/%@",Buddy.user.profilePictureID] parameters:nil
-         class:[BPModelPicture class] callback:^(id obj, NSError *error)
+         class:[BPPicture class] callback:^(id obj, NSError *error)
     {
         if (!error)
         {
         
-            BPModelPicture  *pic = (BPModelPicture*)obj;
+            BPPicture  *pic = (BPPicture*)obj;
             [self.captionField setText:pic.caption];
             
             [self.choosePhotoBut setTitle:@"Loading..." forState:UIControlStateNormal];
@@ -80,9 +80,9 @@
             
             NSString *requestPath =[NSString stringWithFormat:@"pictures/%@/file",Buddy.user.profilePictureID];
             
-            [Buddy GET:requestPath parameters:parameters class:[BuddyFile class] callback:^(id obj, NSError *error) {
+            [Buddy GET:requestPath parameters:parameters class:[BPFile class] callback:^(id obj, NSError *error) {
                
-                BuddyFile *file = (BuddyFile*)obj;
+                BPFile *file = (BPFile*)obj;
                 
                 UIImage *img = [UIImage imageWithData:file.fileData];
                 
@@ -189,12 +189,12 @@
 
     [params setObject:self.captionField.text forKey:@"caption"];
     
-    BuddyFile *file = [[BuddyFile alloc] init];
+    BPFile *file = [[BPFile alloc] init];
     file.contentType = @"image/png";
     file.fileData = UIImagePNGRepresentation(self.selectedImage);
     [params setObject:file forKey:@"data"];
     
-    [Buddy POST:@"users/me/profilepicture" parameters:params class:[BPModelPicture class] callback:[self getSavePhotoCallback]];
+    [Buddy POST:@"users/me/profilepicture" parameters:params class:[BPPicture class] callback:[self getSavePhotoCallback]];
 }
 
 - (IBAction)doDeletePhoto:(id)sender
@@ -227,7 +227,7 @@
             return;
         }
         
-        BPModelPicture *pic = (BPModelPicture*)obj;
+        BPPicture *pic = (BPPicture*)obj;
         Buddy.user.profilePictureID = pic.id;
         
         NSLog(@"Save User profile picture - success Called");

@@ -13,13 +13,9 @@
    #import <SystemConfiguration/SystemConfiguration.h>
    #import <UIKit/UIKit.h>
    #import "Util.h"
-   #import "BuddyObject.h"
-   #import "BuddyCollection.h"
-   #import "NSDictionary+Merge.h"
    #import "NSString+JSON.h"
    #import "NSArray+BPSugar.h"
    #import "NSError+BuddyError.h"
-   #import "NSObject+ToJSON.h"
    #import "JAGPropertyConverter+BPJSONConverter.h"
    #import "NSDate+BPDateHelper.h"
 #endif
@@ -34,6 +30,10 @@ _Pragma("clang diagnostic ignored \"-Warc-performSelector-leaks\"") \
 Stuff; \
 _Pragma("clang diagnostic pop") \
 } while (0)
+
+#ifndef BP_NAMESPACE
+#define BP_NAMESPACE "BP"
+#endif
 
 #ifndef BP
     #ifdef BP_NAMESPACE

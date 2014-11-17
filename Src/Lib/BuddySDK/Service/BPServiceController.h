@@ -18,17 +18,10 @@ typedef void (^REST_ServiceResponse)(NSInteger responseCode, NSDictionary* respo
 -(instancetype) init __attribute__((unavailable("Use initWithUrl:")));
 +(instancetype) new __attribute__((unavailable("Use with initWithUrl:")));
 
-- (instancetype)initWithAppSettings:(BPAppSettings *)appSettings;
-
-@property (nonatomic, readonly, retain) NSString *appID;
-@property (nonatomic, readonly, retain) NSString *appKey;
-
+- (instancetype)initWithAppSettings:(BPAppSettings *)appSettings andSecret:(NSString*)secret;
 - (void)REST_GET:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(REST_ServiceResponse)callback;
 - (void)REST_POST:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(REST_ServiceResponse)callback;
 
-// data is required to be BuddyFiles
-- (void)REST_MULTIPART_POST:(NSString *)servicePath parameters:(NSDictionary *)parameters data:(NSDictionary *)data
-                   mimeType:(NSString *)mimeType callback:(REST_ServiceResponse)callback;
 - (void)REST_GET_FILE:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(REST_ServiceResponse)callback;
 
 - (void)REST_MULTIPART_POST:(NSString *)servicePath parameters:(NSDictionary *)parameters data:(NSDictionary *)data callback:(REST_ServiceResponse)callback;

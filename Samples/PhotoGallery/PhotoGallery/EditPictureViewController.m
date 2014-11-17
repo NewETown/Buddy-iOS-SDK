@@ -19,7 +19,7 @@
 
 @interface EditPictureViewController ()
 @property (nonatomic,strong) MBProgressHUD *HUD;
-@property (nonatomic,strong) BPModelPicture *picture;
+@property (nonatomic,strong) BPPicture *picture;
 @property (nonatomic,strong) NSString *tagString;
 -(void) goBack;
 
@@ -36,7 +36,7 @@
 
 @implementation EditPictureViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil andPicture:(BPModelPicture*) picture
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil andPicture:(BPPicture*) picture
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
@@ -234,7 +234,7 @@
     NSDictionary *parameters = @{@"caption": self.commentText.text,
                                  @"tag": self.tagText.text};
     
-    [Buddy PATCH:[NSString stringWithFormat:@"pictures/%@",self.picture.id] parameters:parameters class:[BPModelPicture class] callback:[self getSavePhotoCallback]];
+    [Buddy PATCH:[NSString stringWithFormat:@"pictures/%@",self.picture.id] parameters:parameters class:[BPPicture class] callback:[self getSavePhotoCallback]];
   }
 
 -(void) loadMetaData

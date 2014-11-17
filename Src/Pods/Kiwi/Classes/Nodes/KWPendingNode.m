@@ -12,13 +12,15 @@
 
 @implementation KWPendingNode
 
+@synthesize description;
+
 #pragma mark - Initializing
 
 - (id)initWithCallSite:(KWCallSite *)aCallSite context:(KWContextNode *)context description:(NSString *)aDescription {
     self = [super init];
     if (self) {
         _callSite = aCallSite;
-        _description = [aDescription copy];
+        description = [aDescription copy];
         _context = context;
     }
 

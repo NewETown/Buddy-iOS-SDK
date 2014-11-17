@@ -18,6 +18,8 @@
 @implementation BPAppSettings
 
 @synthesize serviceUrl = _serviceUrl;
+@synthesize deviceTag;
+@synthesize deviceUniqueId;
 
 - (instancetype)initWithAppId:(NSString *)appID andKey:(NSString *)appKey initialURL:(NSString *)initialURL
 {

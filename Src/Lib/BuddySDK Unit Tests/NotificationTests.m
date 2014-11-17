@@ -43,19 +43,17 @@ describe(@"Notifications", ^{
         
         it(@"Should allow sending a notification", ^{
             
-            BPNotification *note = [BPNotification new];
             NSString* idString = [client currentUser].id;
-            note.recipients = @[idString];
-            note.message = @"Message";
-            note.payload = @"Payload";
-            note.osCustomData = @"{}";
-            note.notificationType = BPNotificationType_Raw;
+            NSDictionary *note = @{@"recipients": @[idString],
+                                   @"message": @"Message",
+                                   @"payload": @"Payload",
+                                   @"osCustomData":@"{}",
+                                   @"type":@"raw"};
             
-            [Buddy sendPushNotification:note callback:^(NSError *error) {
-                [[error should] beNil];
+            [Buddy POST:@"/notifications" parameters:note class:[NSDictionary class] callback:^(id object, NSError *error){
+                [error shouldBeNil];
                 fin = YES;
             }];
-            
             [[expectFutureValue(theValue(fin)) shouldEventually] beTrue];
         });
     });

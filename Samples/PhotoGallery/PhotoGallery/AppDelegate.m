@@ -22,8 +22,10 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     self.window.backgroundColor = [UIColor whiteColor];
-    [Buddy init: APP_ID appKey: APP_KEY ];
-    
+
+    // Go to http://buddyplatform.com to get an app ID and app key.
+    [Buddy init:\@"Your App ID" appKey:\@"Your App Key"];
+
     // Create/Clear all caches/data etc.
     [self clearDownloadedData];
     

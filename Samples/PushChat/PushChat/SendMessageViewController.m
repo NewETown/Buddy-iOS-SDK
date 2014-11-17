@@ -42,25 +42,23 @@
     __block NSError *savedError=nil;
     for(NSString *listId in self.listsToSendTo)
     {
-        BPNotification *notify = [[BPNotification alloc] init];
+        
     
-        BPModelUserList *list = [[CommonAppDelegate channels] getChannel:listId];
+        BPUserList *list = [[CommonAppDelegate channels] getChannel:listId];
         if(list==nil)
         {
             continue;
         }
+        NSDictionary * note = @{@"type": @"alert",
+                              @"message": [NSString stringWithFormat:@"%@:%@", list.name, self.message],
+                              @"recipients": @[list.id]};
         
-        notify.notificationType = BPNotificationType_Alert;
-        notify.message = [NSString stringWithFormat:@"%@:%@",list.name,self.message.text ];
-        notify.recipients = [NSArray arrayWithObjects:list.id,nil];
-        
-        [Buddy sendPushNotification:notify callback:^(NSError *error)
-        {
-            if(error!=nil && savedError==nil)
-            {
+        [Buddy POST:@"/notifications" parameters:note class:[NSDictionary class] callback:^(id object, NSError *error){
+            if(error != nil && savedError ==nil){
                 savedError=error;
             }
         }];
+        
     }
     
     self.message.text = nil;
@@ -118,7 +116,7 @@
     
     for(NSString *listId in self.listsToSendTo)
     {
-        BPModelUserList *list = [[CommonAppDelegate channels] getChannel:listId];
+        BPUserList *list = [[CommonAppDelegate channels] getChannel:listId];
         if(list==nil)
         {
             continue;

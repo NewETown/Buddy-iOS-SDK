@@ -23,7 +23,7 @@
     
     [Buddy init:APP_ID appKey:APP_KEY];
     
-    [Buddy loginUser:TEST_USERNAME password:TEST_PASSWORD callback:^(BPModelUser *loggedInUser, NSError *error)
+    [Buddy loginUser:TEST_USERNAME password:TEST_PASSWORD callback:^(BPUser *loggedInUser, NSError *error)
     {
         if(loggedInUser)
         {

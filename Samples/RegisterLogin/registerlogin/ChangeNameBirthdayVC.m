@@ -105,7 +105,7 @@
                                  @"lastName": self.lastNameField.text,
                                  @"dateOfBirth" : self.birthdayPicker.date};
     
-    [Buddy PATCH:@"users/me" parameters:parameters class:[BPModelUser class] callback:[self getUpdateProfileCallback]];
+    [Buddy PATCH:@"users/me" parameters:parameters class:[BPUser class] callback:[self getUpdateProfileCallback]];
 }
 
 - (RESTCallback) getUpdateProfileCallback
@@ -130,7 +130,7 @@
             return;
         }
         
-        BPModelUser *user = (BPModelUser*)obj;
+        BPUser *user = (BPUser*)obj;
         
         Buddy.user = user;
         

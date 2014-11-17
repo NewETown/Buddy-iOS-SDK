@@ -1,1 +1,1 @@
-../../../Lib/BuddySDK/BPObjects/BPPicture.h
+../../../Lib/BuddySDK/Models/BPPicture.h
