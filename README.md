@@ -1,9 +1,7 @@
 # Buddy iOS SDK
 These release notes are for the Buddy Platform iOS SDK.
 
-Please refer to [buddyplatform.com/docs](https://buddyplatform.com/docs) for more details on the iOS SDK.
-
-**NOTE**: The iOS SDK has recently been updated! Please see the [iOS 3.0 Migration](http://buddyplatform.com/docs/iOS%20SDK%203.0%20Migration) page for a quickstart guide.
+Please refer to [buddyplatform.com/docs](https://buddyplatform.com/docs#iOSSDK) for more details on the iOS SDK.
 
 ## Introduction
 
@@ -68,7 +66,7 @@ To create a new project using the Buddy SDK:
 
     git clone https://github.com/BuddyPlatform/Buddy-iOS-SDK.git
 
-2) Build the project (for specific build instructions see our [iOS documentation](https://buddyplatform.com/docs/iOS%20SDK))
+2) Build the project (for specific build instructions see our [iOS documentation](https://buddyplatform.com/docs#iOSSDK))
 
 3) Include the BuddySDK.framework into the Frameworks section of your project in Xcode
 
@@ -143,14 +141,14 @@ The Buddy iOS SDK handles user creation, login, and logout.
     [Buddy logoutUser:^(NSError *error) {
       // Perform some action on logout
     }];
-	
+
 ### REST Interface
-	  
+
 Each SDK provides wrappers that make REST calls to Buddy. Responses can be handled in two ways: you can create your own wrapper classes, similar to those found in the `Models` folder, or you can use a basic `[NSDictionary class]`.
 
 #### POST
 
-In this example we'll create a checkin. Take a look at the [create checkin REST documentation](https://buddyplatform.com/docs/Create%20Checkin/HTTP) then:
+In this example we'll create a checkin. Take a look at the [create checkin REST documentation](https://buddyplatform.com/docs/Checkins#CreateCheckin) then:
 	 
  	  // Create a checkin
  	  BPCoordinate *coord = BPCoordinateMake(47.1, -121.292);
@@ -168,7 +166,7 @@ In this example we'll create a checkin. Take a look at the [create checkin REST 
 
 #### GET
 
-We now can call GET to search for the checkin we just created!
+We now can call GET to [search for the checkin](https://buddyplatform.com/docs/Checkins#SearchCheckins) we just created!
 
     BPCoordinateRange *range = BPCoordinateRangeMake(47.1, -121.292, 2500);
     
@@ -197,7 +195,7 @@ Buddy offers support for binary files. The iOS SDK works with files through our 
 
 #### Upload A File
 
-Here we demonstrate uploading a picture. All binary files use the same pattern with a different path and different parameters. To upload a picture POST to `"/pictures"`:
+Here we demonstrate uploading a picture. For all binary files (e.g. blobs and videos), the pattern is the same, but with a different path and different parameters. For full documentation see our [Media and Files](https://buddyplatform.com/docs/Media%20and%20Files) documentation page.
 
     BPFile *file = [[BPFile alloc] init];
     file.contentType = @"image/jpg";
@@ -220,7 +218,6 @@ Here we demonstrate uploading a picture. All binary files use the same pattern w
 To download a file send a GET request with BPFile as the operation type. This sample downloads the picture we uploaded in the "Upload File" example:
 
     // Don't forget to store the picture ID in pictureId!
-
     [Buddy GET:[NSString stringWithFormat:@"/pictures/%@/file", pictureId] parameters:nil class:[BPFile class] callback:^(id obj, NSError *error) {
         
         if(!error)
