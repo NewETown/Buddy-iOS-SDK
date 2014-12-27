@@ -150,9 +150,8 @@ Each SDK provides wrappers that make REST calls to Buddy. Responses can be handl
 
 In this example we'll create a checkin. Take a look at the [create checkin REST documentation](https://buddyplatform.com/docs/Checkins#CreateCheckin) then:
 	 
- 	  // Create a checkin
- 	  BPCoordinate *coord = BPCoordinateMake(47.1, -121.292);
-    
+    // Create a checkin
+    BPCoordinate *coord = BPCoordinateMake(47.1, -121.292);
     NSDictionary *params = @{@"location": coord,
                              @"comment": @"A comment about this awesome place!"};
     
