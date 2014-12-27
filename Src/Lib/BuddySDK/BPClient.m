@@ -108,6 +108,8 @@
     
     _crashManager = [[BPCrashManager alloc] initWithRestProvider:self];
     
+    // Check for OS update, and report.
+    [self updateOSVersion];
 }
 
 - (void)createUser:(NSString*) userName
@@ -269,6 +271,25 @@
     if(notification){
         NSString *bId = [notification valueForKey:@"_bId"];
         [self POST:[NSString stringWithFormat:@"/noftifications/recieved/%@", bId] parameters:nil class:nil callback:nil];
+    }
+}
+
+-(void) updateOSVersion
+{
+    // Grab the current version.
+    NSString *currentVersion = [BuddyDevice osVersion];
+    
+    // New version? Inform Buddy.
+    if (![currentVersion isEqualToString:self.appSettings.osVersion]) {
+        [self PATCH:@"devices/current" parameters:@{@"OSVersion": currentVersion} class:[NSDictionary class] callback:^(id obj, NSError *error) {
+            
+            if (!error) {
+                // update new version only on successful callback.
+                self.appSettings.osVersion = currentVersion;
+            } else {
+                // Try again next time. Not worth reporting up.
+            }
+        }];
     }
 }
 

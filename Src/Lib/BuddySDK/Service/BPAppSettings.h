@@ -22,6 +22,7 @@
 @property (nonatomic, strong) NSString *appKey;
 @property (nonatomic, strong) NSString *serviceUrl;
 
+@property (nonatomic, strong) NSString *osVersion;
 @property (nonatomic, strong) NSString *deviceToken;
 @property (nonatomic, strong) NSDate *deviceTokenExpires;
 @property (nonatomic, strong) NSString *userToken;

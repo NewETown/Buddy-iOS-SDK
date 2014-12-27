@@ -51,6 +51,7 @@
         [self addObserver:self forKeyPath:@"userToken" options:NSKeyValueObservingOptionNew context:nil];
         [self addObserver:self forKeyPath:@"userTokenExpires" options:NSKeyValueObservingOptionNew context:nil];
         [self addObserver:self forKeyPath:@"userID" options:NSKeyValueObservingOptionNew context:nil];
+        [self addObserver:self forKeyPath:@"osVersion" options:NSKeyValueObservingOptionNew context:nil];
     }
     return self;
 }
@@ -65,6 +66,7 @@
     [self removeObserver:self forKeyPath:@"userToken"];
     [self removeObserver:self forKeyPath:@"userTokenExpires"];
     [self removeObserver:self forKeyPath:@"userID"];
+    [self removeObserver:self forKeyPath:@"osVersion"];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
