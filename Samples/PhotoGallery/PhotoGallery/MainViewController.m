@@ -172,7 +172,7 @@
     {
         return cell;
     }
-    NSLog (@"Cell for Item at Index: %d PhotoID: %@",indexPath.row, picture.id);
+    NSLog (@"Cell for Item at Index: %ld PhotoID: %@",indexPath.row, picture.id);
     
     UIImageView *imageView = (UIImageView*)[cell viewWithTag:1];
     imageView.layer.cornerRadius = DEFAULT_BUT_CORNER_RAD;

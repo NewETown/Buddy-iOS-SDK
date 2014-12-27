@@ -1,13 +1,9 @@
+source 'https://github.com/CocoaPods/Specs.git'
+
 workspace '../BuddySDK.xcworkspace'
 xcodeproj 'Lib/BuddySDK.xcodeproj'
-xcodeproj 'BuddySocial/BuddySocial.xcodeproj'
 
 target :'BuddySDK Unit Tests', :exclusive => true do
-    pod 'Kiwi/XCTest', '2.2.4'
+    pod 'Kiwi'
     xcodeproj 'Lib/BuddySDK.xcodeproj'
-end
-
-target :'BuddySocial', :exclusive => true do
-    pod 'BuddySDK', :path => '../BuddySDK.podspec'
-    xcodeproj 'BuddySocial/BuddySocial.xcodeproj'
 end

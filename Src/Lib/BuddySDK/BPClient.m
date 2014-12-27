@@ -260,7 +260,7 @@
     self.appSettings.devicePushToken = token;
     NSString *resource = @"devices/current";
     [self PATCH:resource parameters:@{@"pushToken": token} class:[NSDictionary class] callback:^(id json, NSError *error) {
-        callback ? callback(error,json) : nil;
+        callback ? callback(json,error) : nil;
     }];
 }
 

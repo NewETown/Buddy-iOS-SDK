@@ -1,1 +1,0 @@
-../../../Lib/BuddySDK/BuddyClientProtocol.h

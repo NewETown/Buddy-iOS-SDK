@@ -17,6 +17,6 @@
 -(void) addItem:(ViewChannelListItem*)item;
 -(void) clear;
 
--(int) itemCount;
+-(NSUInteger) itemCount;
 
 @end

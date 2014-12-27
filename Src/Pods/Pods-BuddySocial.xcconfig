@@ -1,6 +1,0 @@
-FRAMEWORK_SEARCH_PATHS = "$(PODS_ROOT)/../Lib/BuddySDK/Vendor"
-GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers" "${PODS_ROOT}/Headers/BuddySDK" "${PODS_ROOT}/Headers/Kiwi"
-OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers" -isystem "${PODS_ROOT}/Headers/BuddySDK" -isystem "${PODS_ROOT}/Headers/Kiwi"
-OTHER_LDFLAGS = -ObjC -framework CoreLocation -framework CrashReporter
-PODS_ROOT = ${SRCROOT}/../Pods

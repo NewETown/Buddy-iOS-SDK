@@ -82,7 +82,7 @@
         [_label setFont: LabelFont];
         
         CGRect frame = CGRectZero;
-        frame.size = [text sizeWithFont: _label.font];
+        frame.size = [text sizeWithAttributes:@{NSFontAttributeName:_label.font}];
         [_label setFrame: frame];
         
         frame.size = CGSizeMake(frame.size.width + HorizontalPadding, frame.size.height + VerticalPadding);

@@ -53,6 +53,7 @@
 
 - (void) viewDidAppear:(BOOL)animated
 {
+    [super viewDidAppear:animated];
     self.HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     self.HUD.labelText= @"Loading...";
     self.HUD.dimBackground = YES;

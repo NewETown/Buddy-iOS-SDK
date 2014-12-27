@@ -35,7 +35,7 @@
     
 }
 
--(int) channelCount
+-(NSUInteger) channelCount
 {
     return [self.channels count];
 }

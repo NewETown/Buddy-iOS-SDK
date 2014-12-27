@@ -18,7 +18,7 @@
 -(void) clearChannels;
 -(void) addChannel:(BPUserList*)channel;
 
--(int) channelCount;
+-(NSUInteger) channelCount;
 
 -(BPUserList*) getChannel:(NSString*)channelID;
 

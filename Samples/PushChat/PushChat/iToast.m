@@ -38,7 +38,9 @@ static iToastSettings *sharedSettings = nil;
 	}
 	
 	UIFont *font = [UIFont systemFontOfSize:16];
-	CGSize textSize = [text sizeWithFont:font constrainedToSize:CGSizeMake(280, 60)];
+    CGSize textSize = textSize = [text boundingRectWithSize:CGSizeMake(280, 60)
+                                                    options:(NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading)
+                                                 attributes:@{NSFontAttributeName: font} context:nil].size;
 	
 	UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, textSize.width + 5, textSize.height + 5)];
 	label.backgroundColor = [UIColor clearColor];

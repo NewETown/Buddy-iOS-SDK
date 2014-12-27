@@ -18,25 +18,12 @@
 		293ABF7D19453942003B8922 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 293ABF7C19453942003B8922 /* Foundation.framework */; };
 		293ABF7F19453942003B8922 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 293ABF7E19453942003B8922 /* CoreGraphics.framework */; };
 		293ABF8119453942003B8922 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 293ABF8019453942003B8922 /* UIKit.framework */; };
-		293ABF9F19453942003B8922 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 293ABF9E19453942003B8922 /* XCTest.framework */; };
-		293ABFA019453942003B8922 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 293ABF7C19453942003B8922 /* Foundation.framework */; };
-		293ABFA119453942003B8922 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 293ABF8019453942003B8922 /* UIKit.framework */; };
 		293ABFB71945399A003B8922 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 293ABFB61945399A003B8922 /* MobileCoreServices.framework */; };
 		293ABFB9194539B2003B8922 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 293ABFB8194539B2003B8922 /* SystemConfiguration.framework */; };
 		293ABFBB194539BF003B8922 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 293ABFBA194539BF003B8922 /* CoreLocation.framework */; };
 		293ABFBD194539CD003B8922 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 293ABFBC194539CD003B8922 /* CFNetwork.framework */; };
 		CFFF0EB305994F44844CC27B /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 85280783D54D45A9BC813A9D /* libPods.a */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		293ABFA219453942003B8922 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 293ABF7119453942003B8922 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 293ABF7819453942003B8922;
-			remoteInfo = BuddyStafrter;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		2900D8B31946750F007F5A89 /* BPStarterLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BPStarterLoginViewController.h; path = BuddyStarter/BPStarterLoginViewController.h; sourceTree = SOURCE_ROOT; };
@@ -55,14 +42,14 @@
 		293ABF7C19453942003B8922 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		293ABF7E19453942003B8922 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		293ABF8019453942003B8922 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		293ABF9D19453942003B8922 /* BuddyStarterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BuddyStarterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		293ABF9E19453942003B8922 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		293ABFB61945399A003B8922 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		293ABFB8194539B2003B8922 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		293ABFBA194539BF003B8922 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		293ABFBC194539CD003B8922 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		52E5E7667DCACE340E627605 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		85280783D54D45A9BC813A9D /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		D72801C2D082413692060F79 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		A7C4C4685ED8933EC3904B93 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,16 +68,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		293ABF9A19453942003B8922 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				293ABF9F19453942003B8922 /* XCTest.framework in Frameworks */,
-				293ABFA119453942003B8922 /* UIKit.framework in Frameworks */,
-				293ABFA019453942003B8922 /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -100,7 +77,7 @@
 				293ABF8219453942003B8922 /* BuddyStarter */,
 				293ABF7B19453942003B8922 /* Frameworks */,
 				293ABF7A19453942003B8922 /* Products */,
-				D72801C2D082413692060F79 /* Pods.xcconfig */,
+				6CE980F7C26C39380B0E515C /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -108,7 +85,6 @@
 			isa = PBXGroup;
 			children = (
 				293ABF7919453942003B8922 /* BuddyStarter.app */,
-				293ABF9D19453942003B8922 /* BuddyStarterTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -157,6 +133,15 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		6CE980F7C26C39380B0E515C /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				52E5E7667DCACE340E627605 /* Pods.debug.xcconfig */,
+				A7C4C4685ED8933EC3904B93 /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -179,24 +164,6 @@
 			productReference = 293ABF7919453942003B8922 /* BuddyStarter.app */;
 			productType = "com.apple.product-type.application";
 		};
-		293ABF9C19453942003B8922 /* BuddyStarterTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 293ABFB119453942003B8922 /* Build configuration list for PBXNativeTarget "BuddyStarterTests" */;
-			buildPhases = (
-				293ABF9919453942003B8922 /* Sources */,
-				293ABF9A19453942003B8922 /* Frameworks */,
-				293ABF9B19453942003B8922 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				293ABFA319453942003B8922 /* PBXTargetDependency */,
-			);
-			name = BuddyStarterTests;
-			productName = BuddyStafrterTests;
-			productReference = 293ABF9D19453942003B8922 /* BuddyStarterTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -206,11 +173,6 @@
 				CLASSPREFIX = BPStarter;
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Buddy Platform";
-				TargetAttributes = {
-					293ABF9C19453942003B8922 = {
-						TestTargetID = 293ABF7819453942003B8922;
-					};
-				};
 			};
 			buildConfigurationList = 293ABF7419453942003B8922 /* Build configuration list for PBXProject "BuddyStarter" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -226,7 +188,6 @@
 			projectRoot = "";
 			targets = (
 				293ABF7819453942003B8922 /* BuddyStarter */,
-				293ABF9C19453942003B8922 /* BuddyStarterTests */,
 			);
 		};
 /* End PBXProject section */
@@ -240,13 +201,6 @@
 				2900D8C01946750F007F5A89 /* BPStarterLoginViewController.xib in Resources */,
 				2900D8BD1946750F007F5A89 /* BPStarterViewController.xib in Resources */,
 				2900D8C719467569007F5A89 /* InfoPlist.strings in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		293ABF9B19453942003B8922 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -280,7 +234,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -297,22 +251,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		293ABF9919453942003B8922 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		293ABFA319453942003B8922 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 293ABF7819453942003B8922 /* BuddyStarter */;
-			targetProxy = 293ABFA219453942003B8922 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		2900D8C519467569007F5A89 /* InfoPlist.strings */ = {
@@ -400,7 +339,7 @@
 		};
 		293ABFAF19453942003B8922 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D72801C2D082413692060F79 /* Pods.xcconfig */;
+			baseConfigurationReference = 52E5E7667DCACE340E627605 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -418,7 +357,7 @@
 		};
 		293ABFB019453942003B8922 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D72801C2D082413692060F79 /* Pods.xcconfig */;
+			baseConfigurationReference = A7C4C4685ED8933EC3904B93 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -431,46 +370,6 @@
 				INFOPLIST_FILE = "BuddyStarter/BuddyStarter-Info.plist";
 				PRODUCT_NAME = BuddyStarter;
 				WRAPPER_EXTENSION = app;
-			};
-			name = Release;
-		};
-		293ABFB219453942003B8922 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/BuddyStafrter.app/BuddyStafrter";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "BuddyStafrter/BuddyStafrter-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "BuddyStafrterTests/BuddyStarterTests-Info.plist";
-				PRODUCT_NAME = BuddyStarterTests;
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Debug;
-		};
-		293ABFB319453942003B8922 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/BuddyStafrter.app/BuddyStafrter";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "BuddyStafrter/BuddyStafrter-Prefix.pch";
-				INFOPLIST_FILE = "BuddyStafrterTests/BuddyStarterTests-Info.plist";
-				PRODUCT_NAME = BuddyStarterTests;
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
 			};
 			name = Release;
 		};
@@ -491,15 +390,6 @@
 			buildConfigurations = (
 				293ABFAF19453942003B8922 /* Debug */,
 				293ABFB019453942003B8922 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		293ABFB119453942003B8922 /* Build configuration list for PBXNativeTarget "BuddyStarterTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				293ABFB219453942003B8922 /* Debug */,
-				293ABFB319453942003B8922 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

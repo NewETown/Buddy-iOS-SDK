@@ -26,6 +26,6 @@
 
 #pragma mark - Getting Descriptions
 
-@property (nonatomic, copy) NSString *description;
+@property (readonly, copy) NSString *description;
 
 @end

@@ -133,7 +133,7 @@
 {
     BOOL lp64 = NO;
     /* Map to Apple-style code type, and mark whether architecture is LP64 (64-bit) */
-    NSString *codeType = nil;
+    NSString *codeType __unused = nil;
     {
         /* Attempt to derive the code type from the binary images */
         for (PLCrashReportBinaryImageInfo *image in report.images) {
@@ -228,7 +228,7 @@
 {
     /* Base image address containing instrumention pointer, offset of the IP from that base
      * address, and the associated image name */
-    uint64_t baseAddress = 0x0;
+    uint64_t baseAddress __unused = 0x0;
     uint64_t pcOffset = 0x0;
     NSString *imageName = @"\?\?\?";
     NSString *symbolString = nil;

@@ -31,7 +31,7 @@
     [self.table removeAllObjects];
 }
 
--(int) itemCount
+-(NSUInteger) itemCount
 {
     return [self.table count];
 }

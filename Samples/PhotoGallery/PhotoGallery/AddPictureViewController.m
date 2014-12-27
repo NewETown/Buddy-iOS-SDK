@@ -21,7 +21,7 @@
 
 #import "AddPictureViewController.h"
 
-@interface AddPictureViewController ()
+@interface AddPictureViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate, MBProgressHUDDelegate>
 
 @property (nonatomic,strong) MBProgressHUD *HUD;
 

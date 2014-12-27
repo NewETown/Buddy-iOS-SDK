@@ -12,7 +12,7 @@
 
 @implementation KWPendingNode
 
-@synthesize description;
+@synthesize description = _description;
 
 #pragma mark - Initializing
 
@@ -20,7 +20,7 @@
     self = [super init];
     if (self) {
         _callSite = aCallSite;
-        description = [aDescription copy];
+        _description = [aDescription copy];
         _context = context;
     }
 

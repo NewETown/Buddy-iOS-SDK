@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "MBProgressHUD.h"
 
-@interface AddPictureViewController : UIViewController <UIImagePickerControllerDelegate,MBProgressHUDDelegate>
+@interface AddPictureViewController : UIViewController
 
 @property (nonatomic,weak) IBOutlet UIButton *choosePhotoBut;
 @property (nonatomic,weak) IBOutlet UIButton *cancelBut;

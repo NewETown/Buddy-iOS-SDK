@@ -8,7 +8,7 @@
 
 @implementation KWBlockNode
 
-@synthesize description;
+@synthesize description = _description;
 
 #pragma mark - Initializing
 
@@ -16,7 +16,7 @@
     self = [super init];
     if (self) {
         _callSite = aCallSite;
-        description = aDescription;
+        _description = [aDescription copy];
         _block = [block copy];
     }
 
