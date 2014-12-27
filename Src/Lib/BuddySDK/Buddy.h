@@ -10,7 +10,6 @@
 #import <UIKit/UIKit.h>
 
 #import "BuddyDevice.h"
-#import "BPCoordinate.h"
 #import "BPDateRange.h"
 
 #import "BuddyClientProtocol.h"
@@ -19,11 +18,24 @@
 #import "BPSize.h"
 
 // Models
-#import "BPUser.h"
+#import "BPAlbum.h"
+#import "BPAlbumItem.h"
+#import "BPBlob.h"
 #import "BPCheckin.h"
+#import "BPCoordinate.h"
+#import "BPFile.h"
+#import "BPIdentity.h"
+#import "BPLocation.h"
+#import "BPMessage.h"
+#import "BPMetadataItem.h"
+#import "BPNotificationResult.h"
 #import "BPPageResults.h"
 #import "BPPicture.h"
+#import "BPSocialAuthenticatedUser.h"
+#import "BPUser.h"
 #import "BPUserList.h"
+#import "BPUserListItem.h"
+#import "BPVideo.h"
 
 #import "BPFile.h"
 
